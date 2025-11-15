@@ -730,7 +730,7 @@ textarea.form-input {
 .intro-video video,
 .other-videos video {
   width: 100%;
-  max-width: 200px;     /* Adjust size */
+  max-width: 300px;     /* Adjust size */
   height: auto;         /* Maintain video ratio */
   object-fit: contain;  /* NO CROPPING AT ALL */
   border-radius: 15px;
