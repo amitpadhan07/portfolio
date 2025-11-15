@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/anim.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <title>Portfolio | AYUSHI SAINI</title>
+  <style>
+    .page-section {
+      display: none;
+    }
+
+    .page-section.active {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bgAnimation" id="bgAnimation">
+    <div class="backgroundAmim"></div>
+  </div>
+  <section class="main">
+    <!-- Add this at the top of .info -->
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="info">
+      <div class="proimg">
+        <img src="assets/images/myphoto.png" alt="Profile Picture" />
+        <div class="name">
+          <h1>AYUSHI SAINI</h1>
+          <h3>2nd Year B. Tech Student </h3>
+        </div>
+      </div>
+      <!-- Info Card Flip Effect -->
+      <div class="info-card-flip" id="infoCardFlip">
+        <div class="info-card-inner">
+          <div class="info-card front">
+            <nav class="main-nav">
+              <a href="#about" class="nav-link active">
+                <i class="fa fa-user"></i>
+                <span>About</span>
+              </a>
+              <a href="#resume" class="nav-link">
+                <i class="fa fa-file-alt"></i>
+                <span>Resume</span>
+              </a>
+              <a href="#skills" class="nav-link">
+                <i class="fa fa-lightbulb"></i>
+                <span>Skills</span>
+              </a>
+              <a href="#intro" class="nav-link">
+                <i class="fa fa-video"></i>
+                <span>Intro</span>
+              </a>
+              <a href="#projects" class="nav-link">
+                <i class="fa fa-layer-group"></i>
+                <span>Projects</span>
+              </a>
+              <a href="#contact" class="nav-link">
+                <i class="fa fa-envelope"></i>
+                <span>Contact</span>
+              </a>
+            </nav>
+            <button class="return" type="button" onclick="flipInfoCard(true)" title="Show Personal Info">
+              <i class="fa fa-arrow-right arrow"></i>
+            </button>
+          </div>
+          <div class="info-card back">
+            <button class="return" type="button" onclick="flipInfoCard(false)" title="Back to Menu">
+              <i class="fa fa-arrow-left arrow"></i>
+            </button>
+            <div class="pi"><span>Personal Info</span></div>
+            <div class="Info">
+              <div class="detail">
+                <div class="icon">
+                  <i class="fa-solid fa-mobile-screen-button"></i>
+                </div>
+                <div class="data">
+                  <span class="heading">Phone no.</span>
+                  <a href="#">+91 8171816722</a>
+                </div>
+              </div>
+              <div class="divider"></div>
+              <div class="detail">
+                <div class="icon">
+                  <i class="fa fa-envelope"></i>
+                </div>
+                <div class="data">
+                  <span class="heading">Email</span>
+                  <a href="mailto:ayushisaini554@gmail.com">ayushisaini554@gmail.com</a>
+                </div>
+              </div>
+              <div class="divider"></div>
+              <div class="detail">
+                <div class="icon">
+                  <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div class="data">
+                  <span class="heading">Location</span>
+                  <a href="https://maps.app.goo.gl/E2F2fj2czvZ2oGuN6" target="_blank">Haridwar, Uttarakhand 249205</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="download">
+        <a href="Prins_CV.pdf" target="_blank" download="ayushi_cv" class="cv"><i class="fa fa-download"></i>
+          Download CV</a>
+        <button class="contact_me" type="button">
+          <i class="fa fa-phone" aria-hidden="true"></i>
+          <span>Contact Me</span>
+        </button>
+      </div>
+      <nav class="social">
+        <ul>
+          <li class="instagram">
+            <a href="https://www.instagram.com/__ayushi_saini_?utm_source=ig_web_button_share_sheet&igsh=MXZ3NmYxeG16Y21yMA==" target="_blank"><i
+                class="fa-brands fa-instagram"></i><span>Instagram</span></a>
+          </li>
+          <li class="github">
+            <a href="https://github.com/PhoniexCoder" target="_blank"><i
+                class="fa-brands fa-github"></i><span>Github</span></a>
+          </li>
+          <li class="telegram">
+            <a href="https://t.me/dokamsekam" target="_blank"><i
+                class="fa-brands fa-telegram"></i><span>Telegram</span></a>
+          </li>
+          <li class="twitter">
+            <a href="https://x.com" target="_blank"><i class="fa-brands fa-x-twitter"></i><span>Twitter</span></a>
+          </li>
+          <li class="linkedin">
+            <a href="https://linkedin.com/in/ayushi-saini-4a703a322" target="_blank"><i
+                class="fa-brands fa-linkedin-in"></i><span>Linkedin</span></a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- All content except info/social goes in content-wrapper -->
+    <div class="content-wrapper">
+      <div class="more">
+        <div class="aboutme">
+          <!-- ABOUT SECTION -->
+          <article id="about" class="page-section active">
+            <header>
+              <h2 class="h2 article-title">About Me</h2>
+            </header>
+            <section class="about-text">
+              <p>
+                I'm a highly motivated Computer Science student with a strong foundation in AI, DSA, and MERN FullStack
+                Development. My passion lies in building robust, real-time applications and innovative IoT solutions.
+              </p>
+
+            </section>
+            <section class="service">
+              <h3 class="h3 service-title">What I'm doing</h3>
+              <ul class="service-list">
+                <li class="service-item">
+                  <div class="service-icon-box">
+                    <img src="./assets/images/icon-app.svg" alt="mobile app icon" width="40">
+                  </div>
+                  <div class="service-content-box">
+                    <h4 class="h4 service-item-title">AI & Machine Learning</h4>
+                    <p class="service-item-text">
+                      Developing intelligent systems, particularly with LLMs and computer vision.
+                    </p>
+                  </div>
+                </li>
+
+                <li class="service-item">
+                  <div class="service-icon-box">
+                    <img src="./assets/images/icon-design.svg" alt="design icon" width="40">
+                  </div>
+                  <div class="service-content-box">
+                    <h4 class="h4 service-item-title">Web Design & UX</h4>
+                    <p class="service-item-text">
+                      Creating intuitive and aesthetically pleasing user interfaces.
+                    </p>
+                  </div>
+                </li>
+
+              </ul>
+            </section>
+          </article>
+
+          <!-- Resume Section -->
+          <article id="resume" class="page-section">
+            <header>
+              <h2 class="h2 article-title">Resume</h2>
+            </header>
+            <!-- Education -->
+            <section class="timeline">
+              <div class="title-wrapper">
+                <div class="icon-box">
+                  <i class="fa fa-book"></i>
+                </div>
+                <h3 class="h3">Education</h3>
+              </div>
+              <ol class="timeline-list">
+                <li class="timeline-item">
+                  <h4 class="h4 timeline-item-title">Graphic Era Hill University</h4>
+                  <span>2024 — 2028</span>
+                  <p class="timeline-text">
+                    B.Tech in Computer Science and Engineering<br>
+                    CGPA: 9.1 / 10.0<br>
+                    <b>Coursework:</b> Data Structures and Algorithms,C,C++
+                  </p>
+                </li>
+                <li class="timeline-item">
+                  <h4 class="h4 timeline-item-title">DAV CENTENARY PUBLIC SCHOOL, JAGJEETPUR, HARIDWAR</h4>
+                  <span>2022 — 2023</span>
+                  <p class="timeline-text">
+                    Class XII (CBSE), Science<br>
+                    Percentage: 77%
+                  </p>
+                </li>
+                <li class="timeline-item">
+                  <h4 class="h4 timeline-item-title">DAV CENTENARY PUBLIC SCHOOL, JAGJEETPUR, HARIDWAR</h4>
+                  <span>2020 — 2021</span>
+                  <p class="timeline-text">
+                    Class X (CBSE), Science<br>
+                    Percentage: 87%
+                  </p>
+                </li>
+              </ol>
+            </section>
+            <!-- Experience -->
+            <section class="timeline">
+              <div class="title-wrapper">
+                <div class="icon-box">
+                  <i class="fa fa-briefcase"></i>
+                </div>
+                <h3 class="h3">Experience</h3>
+              </div>
+              <ol class="timeline-list">
+
+                <li class="timeline-item">
+                  <h4 class="h4 timeline-item-title">Active Member & Mentor</h4>
+                  <span>2024 — Present</span>
+                  <p class="timeline-text">
+                    - Google Developers Group (Campus), IEEE GEHU Student Branch, Codev Club<br>
+                    - Mentored juniors and conducted programming workshops<br>
+                    - Participated in campus and national-level hackathons
+                  </p>
+                </li>
+              </ol>
+            </section>
+            <!-- Certifications -->
+            <section class="timeline">
+              <div class="title-wrapper">
+                <div class="icon-box">
+                  <i class="fa fa-certificate"></i>
+                </div>
+                <h3 class="h3">Certifications</h3>
+              </div>
+              <ol class="timeline-list">
+
+                <li class="timeline-item">
+                  <h4 class="h4 timeline-item-title">AWS Cloud Practitioner Essentials</h4>
+                  <span>2025</span>
+                </li>
+                <li class="timeline-item">
+                  <h4 class="h4 timeline-item-title">NPTEL - Cloud Computing</h4>
+                  <span>2025</span>
+                </li>
+                <li class="timeline-item">
+                  <h4 class="h4 timeline-item-title">NPTEL - DBMS</h4>
+                  <span>2025</span>
+                </li>
+              </ol>
+            </section>
+          </article>
+          <!-- SKILLS SECTION -->
+          <article id="skills" class="page-section">
+            <header>
+              <h2 class="h2 article-title">Skills</h2>
+            </header>
+            <section>
+              <ul class="skills-list content-card">
+                <li class="skills-item" title="HTML5, CSS3, JavaScript ES6+">
+                  <div class="title-wrapper">
+                    <i class="fa-brands fa-html5 skill-icon" style="color:#e44d26"></i>
+                    <h5 class="h5">HTML/CSS/JS</h5>
+                    <data value="90">70%</data>
+                  </div>
+                  <div class="skill-progress-bg">
+                    <div class="skill-progress-fill" style="width: 70%;"></div>
+                  </div>
+                </li>
+
+                <li class="skills-item" title="Node.js, Express, REST APIs">
+                  <div class="title-wrapper">
+                    <i class="fa-brands fa-node-js skill-icon" style="color:#3c873a"></i>
+                    <h5 class="h5">Node.js</h5>
+                    <data value="80">50%</data>
+                  </div>
+                  <div class="skill-progress-bg">
+                    <div class="skill-progress-fill" style="width: 50%;"></div>
+                  </div>
+                </li>
+                <li class="skills-item" title="Python, Flask, FastAPI, Tkinter">
+                  <div class="title-wrapper">
+                    <i class="fa-brands fa-python skill-icon" style="color:#3776ab"></i>
+                    <h5 class="h5">Python</h5>
+                    <data value="90">80%</data>
+                  </div>
+                  <div class="skill-progress-bg">
+                    <div class="skill-progress-fill" style="width: 80%;"></div>
+                  </div>
+                </li>
+
+                <li class="skills-item" title="MongoDB, Microsoft SQL Server, Mongoose">
+                  <div class="title-wrapper">
+                    <i class="fa-solid fa-database skill-icon" style="color:#4db33d"></i>
+                    <h5 class="h5">Databases</h5>
+                    <data value="80">60%</data>
+                  </div>
+                  <div class="skill-progress-bg">
+                    <div class="skill-progress-fill" style="width: 60%;"></div>
+                  </div>
+                </li>
+
+                <li class="skills-item" title="Git, GitHub, Version Control">
+                  <div class="title-wrapper">
+                    <i class="fa-brands fa-git-alt skill-icon" style="color:#f34f29"></i>
+                    <h5 class="h5">Git/GitHub</h5>
+                    <data value="85">75%</data>
+                  </div>
+                  <div class="skill-progress-bg">
+                    <div class="skill-progress-fill" style="width: 75%;"></div>
+                  </div>
+                </li>
+                <li class="skills-item" title="Java">
+                  <div class="title-wrapper">
+                    <i class="fa-brands fa-java skill-icon" style="color:#e76f00"></i>
+                    <h5 class="h5">Java</h5>
+                    <data value="70">60%</data>
+                  </div>
+                  <div class="skill-progress-bg">
+                    <div class="skill-progress-fill" style="width: 60%;"></div>
+                  </div>
+                </li>
+                <li class="skills-item" title="C, C++">
+                  <div class="title-wrapper">
+                    <i class="fa-solid fa-code skill-icon" style="color:#00599c"></i>
+                    <h5 class="h5">C/C++</h5>
+                    <data value="70">70%</data>
+                  </div>
+                  <div class="skill-progress-bg">
+                    <div class="skill-progress-fill" style="width: 70%;"></div>
+                  </div>
+                </li>
+                <li class="skills-item" title="Teamwork, Communication, Problem Solving">
+                  <div class="title-wrapper">
+                    <i class="fa-solid fa-users skill-icon" style="color:#2196f3"></i>
+                    <h5 class="h5">Soft Skills</h5>
+                    <data value="90">90%</data>
+                  </div>
+                  <div class="skill-progress-bg">
+                    <div class="skill-progress-fill" style="width: 90%;"></div>
+                  </div>
+                </li>
+              </ul>
+            </section>
+          </article>
+
+
+          <!-- INTRO SECTION -->
+          <article id="intro" class="page-section">
+            <header>
+              <h2 class="h2 article-title">Intro & Videos</h2>
+            </header>
+
+            <!-- INTRO TEXT -->
+            <section class="about-text">
+              <p>
+                Here is a short introduction about me along with some project demos and video presentations.
+              </p>
+            </section>
+
+            <!-- INTRO VIDEO -->
+            <section class="intro-video">
+              <h3 class="h3">My Introduction Video</h3>
+              <video width="100%" controls>
+                <source src="assets/videos/intro.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </section>
+
+            <!-- OTHER VIDEOS -->
+            <section class="other-videos">
+              <h3 class="h3">Project Videos</h3>
+
+              <div class="video-box">
+                <h4 class="h3">Project Demo 1</h4>
+                <video width="100%" controls>
+                  <source src="assets/videos/project1.mp4" type="video/mp4">
+                </video>
+              </div>
+
+              <div class="video-box">
+                <h4 class="h3">Project Demo 2</h4>
+                <video width="100%" controls>
+                  <source src="assets/videos/project2.mp4" type="video/mp4">
+                </video>
+              </div>
+
+              <div class="video-box">
+                <h4 class="h3">Project Demo 3</h4>
+                <video width="100%" controls>
+                  <source src="assets/videos/project3.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="video-box">
+                <h4 class="h3">Project Demo 4</h4>
+                <video width="100%" controls>
+                  <source src="assets/videos/project4.mp4" type="video/mp4">
+                </video>
+              </div>
+
+            </section>
+          </article>
+
+
+
+          <!-- PROJECTS SECTION -->
+          <article id="projects" class="page-section">
+            <header>
+              <h2 class="h2 article-title">Projects</h2>
+            </header>
+
+            <section class="projects">
+
+              <select class="filter-dropdown">
+                <option value="all">All</option>
+                <option value="web development">Web development</option>
+                <!-- added -->
+                <option value="applications">Applications</option>
+              </select>
+
+              <ul class="filter-list">
+                <li class="filter-item">
+                  <button class="active" data-filter-btn>All</button>
+                </li>
+                <li class="filter-item">
+                  <button data-filter-btn>Web development</button>
+                </li>
+                <!-- added -->
+                <li class="filter-item">
+                  <button data-filter-btn>Applications</button>
+                </li>
+              </ul>
+
+              <ul class="project-list">
+                <li class="project-item active" data-filter-item data-category="web development">
+                  <a href="" target="_blank">
+                    <figure class="project-img">
+                      <div class="project-item-icon-box">
+                        <ion-icon name="eye-outline"></ion-icon>
+                      </div>
+                      <img src="./assets/images/project-1.jpg" alt="data management" loading="lazy">
+                    </figure>
+                    <h3 class="project-title">Social Media Friend Recommendation System</h3>
+                    <p class="project-category">Web development</p>
+                  </a>
+                </li>
+
+                <li class="project-item active" data-filter-item data-category="web development">
+                  <a href="https://ieee-event-ruddy.vercel.app/" target="_blank">
+                    <figure class="project-img">
+                      <div class="project-item-icon-box">
+                        <ion-icon name="eye-outline"></ion-icon>
+                      </div>
+                      <img src="./assets/images/project-7.png" alt="event attendance management" loading="lazy">
+                    </figure>
+                    <h3 class="project-title">Event Attendance Management</h3>
+                    <p class="project-category">Web development</p>
+                  </a>
+                </li>
+
+
+                <li class="project-item active" data-filter-item data-category="web development">
+                  <a href="" target="_blank">
+                    <figure class="project-img">
+                      <div class="project-item-icon-box">
+                        <ion-icon name="eye-outline"></ion-icon>
+                      </div>
+                      <img src="./assets/images/project-3.jpg" alt="chrome home page" loading="lazy">
+                    </figure>
+                    <h3 class="project-title">Tourism Website</h3>
+                    <p class="project-category">Web development</p>
+                  </a>
+                </li>
+                
+
+                <!-- Applications -->
+
+                <li class="project-item active" data-filter-item data-category="applications">
+                  <a href="" target="_blank">
+                    <figure class="project-img">
+                      <div class="project-item-icon-box">
+                        <ion-icon name="eye-outline"></ion-icon>
+                      </div>
+                      <img
+                        src="https://1.bp.blogspot.com/--N4heGfX4L4/X97uQZEcEqI/AAAAAAAACPE/H3Fmkwnyay8iNvDFHlImhItAKFVbEtxDACLcBGAsYHQ/s740/wifite%2Btutorial%2Bstep%2Bby%2Bstep%2Bwireless%2Bpenetration%2Btesting%2B2.png"
+                        alt="Chess Screen Detection" loading="lazy">
+                    </figure>
+                    <h3 class="project-title">Wifi Pentest Tool</h3>
+                    <p class="project-category">Applications</p>
+                  </a>
+                </li>
+              </ul>
+
+            </section>
+          </article>
+          <!-- CONTACT SECTION -->
+          <article id="contact" class="page-section">
+            <header>
+              <h2 class="h2 article-title">Contact</h2>
+            </header>
+            <section class="mapbox" data-mapbox>
+              <figure>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d132303.1037771773!2d77.93456230503214!3d30.325402518455157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390929c356c888af%3A0x4c3562c032518799!2sDehradun%2C%20Uttarakhand!5e1!3m2!1sen!2sin!4v1737911286953!5m2!1sen!2sin"
+                  width="600" height="450" allowfullscreen="" loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </figure>
+            </section>
+            <section class="contact-form">
+              <h3 class="h3 form-title">Contact Form</h3>
+              <form action="#" class="form" data-form>
+                <div class="input-wrapper">
+                  <input type="text" name="fullname" class="form-input" placeholder="Full name" required
+                    data-form-input>
+                  <input type="email" name="email" class="form-input" placeholder="Email address" required
+                    data-form-input>
+                </div>
+                <textarea name="message" class="form-input" placeholder="Your Message" required
+                  data-form-input></textarea>
+                <button class="form-btn" type="submit" disabled data-form-btn>
+                  <i class="fa fa-paper-plane"></i>
+                  <span>Send Message</span>
+                </button>
+              </form>
+            </section>
+          </article>
+        </div>
+      </div>
+    </div>
+    <!-- Bottom nav for mobile -->
+    <nav class="main-nav main-nav-bottom">
+      <a href="#about" class="nav-link active">
+        <i class="fa fa-user"></i>
+        <span>About</span>
+      </a>
+      <a href="#resume" class="nav-link">
+        <i class="fa fa-file-alt"></i>
+        <span>Resume</span>
+      </a>
+      <a href="#skills" class="nav-link">
+        <i class="fa fa-lightbulb"></i>
+        <span>Skills</span>
+      </a>
+      <a href="#intro" class="nav-link">
+        <i class="fa fa-video"></i>
+        <span>Intro</span>
+      </a>
+      <a href="#projects" class="nav-link">
+        <i class="fa fa-layer-group"></i>
+        <span>Projects</span>
+      </a>
+      <a href="#contact" class="nav-link">
+        <i class="fa fa-envelope"></i>
+        <span>Contact</span>
+      </a>
+    </nav>
+    <!-- END content-wrapper -->
+  </section>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
