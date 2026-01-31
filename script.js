@@ -185,3 +185,22 @@ document.addEventListener("DOMContentLoaded", function() {
   // Optionally, only animate when the skills section is shown
   animateSkills();
 });
+
+
+// PDF Profile Sheet Display Feature
+const pdfViewer = document.getElementById('pdfViewer');
+const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+const pdfPath = './assets/profile-sheet.pdf'; // Update this path to your PDF location
+
+// Load PDF on page load
+window.addEventListener('load', () => {
+  pdfViewer.src = pdfPath;
+});
+
+// Download PDF
+downloadPdfBtn.addEventListener('click', () => {
+  const a = document.createElement('a');
+  a.href = pdfPath;
+  a.download = 'profile-sheet.pdf';
+  a.click();
+});
