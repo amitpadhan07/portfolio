@@ -726,16 +726,74 @@ textarea.form-input {
   }
 }
 
-/* SMALL VIDEO WITHOUT CROPPING */
-.intro-video video,
-.other-videos video {
-  width: 100%;
-  max-width: 300px;     /* Adjust size */
-  height: auto;         /* Maintain video ratio */
-  object-fit: contain;  /* NO CROPPING AT ALL */
-  border-radius: 15px;
-  display: block;
-  margin: 0 auto;
+/* Print optimizations for printing portfolio page directly */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+  }
+  .bgAnimation,
+  .hamburger,
+  .info,
+  .social,
+  .download,
+  .main-nav-bottom,
+  .mapbox,
+  .contact-form,
+  .filter-list,
+  .filter-dropdown,
+  .project-item-icon-box {
+    display: none !important;
+  }
+  .main {
+    padding: 0 !important;
+    height: auto !important;
+    display: block !important;
+    overflow: visible !important;
+  }
+  .content-wrapper {
+    margin: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding: 0 !important;
+  }
+  .more {
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+  .article-title {
+    color: #000000 !important;
+  }
+  .article-title::before {
+    background: #000000 !important;
+  }
+  h1, h2, h3, h4, h5, h6, p, span, li, a {
+    color: #000000 !important;
+  }
+  .skills-item {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: 1px solid #cccccc !important;
+    page-break-inside: avoid;
+  }
+  .skill-progress-bg,
+  .skill-progress-fill {
+    display: none !important;
+  }
+  .timeline-list {
+    border-left-color: #000000 !important;
+  }
+  .timeline-item {
+    page-break-inside: avoid;
+  }
+  .timeline-item::before {
+    background: #000000 !important;
+    border-color: #ffffff !important;
+    box-shadow: 0 0 0 4px #ffffff !important;
+  }
 }
-
-
