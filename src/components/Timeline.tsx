@@ -2,7 +2,20 @@
 
 import { motion } from "framer-motion";
 import SpotlightCard from "@/components/ui/SpotlightCard";
-import { GraduationCap, Brain, Database, Award } from "lucide-react";
+import { GraduationCap, Brain, Database, Award, BookOpen } from "lucide-react";
+
+interface EducationItem {
+  _id: string;
+  institution: string;
+  degree: string;
+  duration: string;
+  description?: string;
+  grade?: string;
+}
+
+interface TimelineProps {
+  education?: EducationItem[];
+}
 
 interface TimelineEvent {
   id: string;
@@ -14,7 +27,7 @@ interface TimelineEvent {
   highlights: string[];
 }
 
-const timelineEvents: TimelineEvent[] = [
+const defaultTimelineEvents: TimelineEvent[] = [
   {
     id: "btech-journey",
     title: "B.Tech Computer Science Engineering",
@@ -23,7 +36,6 @@ const timelineEvents: TimelineEvent[] = [
     icon: <GraduationCap className="w-5 h-5" />,
     description: "Specializing in the AI Full Stack program. Laying a solid foundation in low-level system design and algorithms.",
     highlights: [
-      "GPA Maintained: Technical agilities focus",
       "Core coursework: DSA, OOP, DBMS, OS, Computer Networks, Artificial Intelligence",
       "Solved 200+ algorithmic problems on Leetcode & Codeforces",
     ],
@@ -37,39 +49,44 @@ const timelineEvents: TimelineEvent[] = [
     description: "Built, optimized, and deployed 4 complete full-stack web architectures using standard engineering best practices.",
     highlights: [
       "Designed optimal database schemas (MongoDB, PostgreSQL)",
-      "Implemented secure Role-Based Access Control (RBAC) schemas",
       "Constructed REST APIs with Next.js App Router and Express.js",
-    ],
-  },
-  {
-    id: "ai-pathway",
-    title: "AI & Machine Learning Pathway",
-    subtitle: "Applied Neural Networks, NLP & LLM Integrations",
-    date: "2025 — 2026",
-    icon: <Brain className="w-5 h-5" />,
-    description: "Completed workshops and verified credentials specializing in data extraction, predictive modelling, and Generative AI prompt pipelines.",
-    highlights: [
-      "Google credentials: AI for Data Analysis & Research Insights",
-      "AWS Cloud Academy: Cloud CLI Essentials accreditation",
-      "Hands-on ML workflows: Regression modeling, basic NLP tokenizers, and LLM integrations",
-    ],
-  },
-  {
-    id: "project-milestones",
-    title: "Operational Impact & Project Milestones",
-    subtitle: "Software Engineering Metrics & Performance Tuning",
-    date: "Recent Milestones",
-    icon: <Award className="w-5 h-5" />,
-    description: "Achieved significant performance metrics and process automation throughout personal and academic software deployments.",
-    highlights: [
-      "Automated organizational workflows, decreasing administrative errors and manual sheets by 80%",
-      "Reduced attendee event check-in timings by 50% for 500+ student attendees",
-      "Decreased MongoDB query latencies by 20% using indexes and aggregation pipelines",
     ],
   },
 ];
 
-export default function Timeline() {
+export default function Timeline({ education = [] }: TimelineProps) {
+  // Map dynamic education records to TimelineEvent format
+  const displayEvents: TimelineEvent[] =
+    education && education.length > 0
+      ? education.map((edu, idx) => {
+          // Resolve icon dynamically
+          let icon = <GraduationCap className="w-5 h-5" />;
+          const deg = edu.degree.toLowerCase();
+          if (deg.includes("ai") || deg.includes("intelligence") || deg.includes("learning")) {
+            icon = <Brain className="w-5 h-5" />;
+          } else if (deg.includes("full") || deg.includes("stack") || deg.includes("database")) {
+            icon = <Database className="w-5 h-5" />;
+          } else if (deg.includes("special") || deg.includes("bootcamp")) {
+            icon = <Award className="w-5 h-5" />;
+          }
+
+          const highlights: string[] = [];
+          if (edu.grade) {
+            highlights.push(`Academic Performance / Grade: ${edu.grade}`);
+          }
+
+          return {
+            id: edu._id,
+            title: edu.degree,
+            subtitle: edu.institution,
+            date: edu.duration,
+            icon,
+            description: edu.description || "",
+            highlights,
+          };
+        })
+      : defaultTimelineEvents;
+
   return (
     <section id="experience" className="py-24 relative overflow-hidden bg-[#0a0f1d]/40">
       {/* Background decoration */}
@@ -100,7 +117,7 @@ export default function Timeline() {
 
         {/* Timeline Path */}
         <div className="relative border-l border-white/5 pl-8 sm:pl-12 ml-4 sm:ml-6 space-y-12">
-          {timelineEvents.map((event, index) => (
+          {displayEvents.map((event, index) => (
             <motion.div
               key={event.id}
               initial={{ opacity: 0, x: -30 }}
@@ -133,17 +150,19 @@ export default function Timeline() {
                   </p>
 
                   {/* Highlights list */}
-                  <div className="flex flex-col gap-1.5 mt-2">
-                    <span className="text-[10px] font-mono uppercase text-text-muted tracking-wider">Core Outcomes</span>
-                    <ul className="space-y-1.5">
-                      {event.highlights.map((highlight, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-xs text-text-secondary font-light leading-relaxed">
-                          <span className="w-1.5 h-1.5 rounded-full bg-secondary mt-1.5 flex-shrink-0" />
-                          {highlight}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  {event.highlights.length > 0 && (
+                    <div className="flex flex-col gap-1.5 mt-2">
+                      <span className="text-[10px] font-mono uppercase text-text-muted tracking-wider">Core Outcomes</span>
+                      <ul className="space-y-1.5">
+                        {event.highlights.map((highlight, idx) => (
+                          <li key={idx} className="flex items-start gap-2 text-xs text-text-secondary font-light leading-relaxed">
+                            <span className="w-1.5 h-1.5 rounded-full bg-secondary mt-1.5 flex-shrink-0" />
+                            {highlight}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               </SpotlightCard>
             </motion.div>

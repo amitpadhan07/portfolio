@@ -2,53 +2,41 @@
 
 import { motion, Variants } from "framer-motion";
 import SpotlightCard from "@/components/ui/SpotlightCard";
-import { Sparkles, Cloud, Code2, Layers } from "lucide-react";
+import * as LucideIcons from "lucide-react";
+import { Sparkles } from "lucide-react";
 
-interface AchievementCard {
+interface AchievementItem {
+  _id: string;
   title: string;
-  count: string;
   description: string;
-  icon: React.ReactNode;
-  colorClass: string;
-  borderColor: string;
+  icon: string;
+  date: string;
 }
 
-const achievementsList: AchievementCard[] = [
+interface AchievementsProps {
+  achievements?: AchievementItem[];
+}
+
+const defaultAchievements: AchievementItem[] = [
   {
+    _id: "prod-deploy",
     title: "Production Deployments",
-    count: "4+ Applications",
+    date: "4+ Applications",
     description: "Successfully architected, structured, and deployed full-stack operations, gaining end-to-end SDLC validation.",
-    icon: <Layers className="w-5 h-5 text-sky-400" />,
-    colorClass: "rgba(56, 189, 248, 0.05)",
-    borderColor: "rgba(56, 189, 248, 0.2)",
+    icon: "Layers",
   },
   {
+    _id: "algo-apt",
     title: "Algorithmic Aptitude",
-    count: "200+ DSA Solved",
-    description: "Solved coding challenges across LeetCode, mastering advanced data structures and Object-Oriented paradigms.",
-    icon: <Code2 className="w-5 h-5 text-violet-400" />,
-    colorClass: "rgba(139, 92, 246, 0.05)",
-    borderColor: "rgba(139, 92, 246, 0.2)",
-  },
-  {
-    title: "DevOps & Cloud",
-    count: "AWS & Vercel",
-    description: "Hands-on experience configuring AWS infrastructure, utilizing Cloud CLI services, and setting up automated CI/CD triggers.",
-    icon: <Cloud className="w-5 h-5 text-emerald-400" />,
-    colorClass: "rgba(52, 211, 153, 0.05)",
-    borderColor: "rgba(52, 211, 153, 0.2)",
-  },
-  {
-    title: "AI Integrations",
-    count: "ML & NLP Work",
-    description: "Applied machine learning regression modeling, data aggregation, and modular tokenization concepts on test datasets.",
-    icon: <Sparkles className="w-5 h-5 text-rose-400" />,
-    colorClass: "rgba(251, 113, 133, 0.05)",
-    borderColor: "rgba(251, 113, 133, 0.2)",
+    date: "200+ DSA Solved",
+    description: "Solved coding challenges masterfully on LeetCode, mastering advanced data structures and Object-Oriented paradigms.",
+    icon: "Code2",
   },
 ];
 
-export default function Achievements() {
+export default function Achievements({ achievements = [] }: AchievementsProps) {
+  const displayAchievements = achievements && achievements.length > 0 ? achievements : defaultAchievements;
+
   const container: Variants = {
     hidden: {},
     visible: {
@@ -99,36 +87,41 @@ export default function Achievements() {
           viewport={{ once: true, margin: "-100px" }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
         >
-          {achievementsList.map((ach) => (
-            <motion.div key={ach.title} variants={item} className="flex">
-              <SpotlightCard
-                spotlightColor={ach.colorClass}
-                borderColor={ach.borderColor}
-                className="p-6 w-full flex flex-col justify-between"
-              >
-                <div className="flex flex-col gap-4">
-                  {/* Top Bar: Icon & Count */}
-                  <div className="flex items-center justify-between">
-                    <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
-                      {ach.icon}
+          {displayAchievements.map((ach) => {
+            // Dynamically resolve Lucide Icon or fallback to Sparkles
+            const IconComponent = (LucideIcons as any)[ach.icon] || Sparkles;
+
+            return (
+              <motion.div key={ach._id} variants={item} className="flex">
+                <SpotlightCard
+                  spotlightColor="rgba(56, 189, 248, 0.05)"
+                  borderColor="rgba(56, 189, 248, 0.2)"
+                  className="p-6 w-full flex flex-col justify-between"
+                >
+                  <div className="flex flex-col gap-4">
+                    {/* Top Bar: Icon & Count (stored in Date field) */}
+                    <div className="flex items-center justify-between">
+                      <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
+                        <IconComponent className="w-5 h-5 text-sky-400" />
+                      </div>
+                      <span className="text-xs font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary font-mono uppercase tracking-wider">
+                        {ach.date}
+                      </span>
                     </div>
-                    <span className="text-sm font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary font-mono">
-                      {ach.count}
-                    </span>
+                    {/* Text Details */}
+                    <div>
+                      <h3 className="text-base font-bold text-text-primary mb-2">
+                        {ach.title}
+                      </h3>
+                      <p className="text-xs text-text-secondary leading-relaxed font-light">
+                        {ach.description}
+                      </p>
+                    </div>
                   </div>
-                  {/* Text Details */}
-                  <div>
-                    <h3 className="text-base font-bold text-text-primary mb-2">
-                      {ach.title}
-                    </h3>
-                    <p className="text-xs text-text-secondary leading-relaxed font-light">
-                      {ach.description}
-                    </p>
-                  </div>
-                </div>
-              </SpotlightCard>
-            </motion.div>
-          ))}
+                </SpotlightCard>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </section>

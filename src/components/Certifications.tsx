@@ -2,76 +2,98 @@
 
 import { motion, Variants } from "framer-motion";
 import SpotlightCard from "@/components/ui/SpotlightCard";
-import { Award, Cloud, Database, BrainCircuit, Code, GitBranch } from "lucide-react";
+import { Award, Cloud, Database, BrainCircuit, Code, GitBranch, ExternalLink } from "lucide-react";
 
 interface CertificationItem {
+  _id: string;
   name: string;
   issuer: string;
-  icon: React.ReactNode;
-  colorClass: string;
-  borderColor: string;
+  date: string;
+  certificateUrl?: string;
+  image?: string;
 }
 
-const certifications: CertificationItem[] = [
+interface CertificationsProps {
+  certifications?: CertificationItem[];
+}
+
+const defaultCertifications: CertificationItem[] = [
   {
+    _id: "dbms-nptel",
     name: "NPTEL – Database Management Systems",
     issuer: "National Programme on Technology Enhanced Learning",
-    icon: <Database className="w-5 h-5 text-sky-400" />,
-    colorClass: "rgba(56, 189, 248, 0.05)",
-    borderColor: "rgba(56, 189, 248, 0.2)",
+    date: "2024",
+    certificateUrl: "",
+    image: "",
   },
   {
+    _id: "aws-cli",
     name: "AWS Cloud CLI Essentials",
     issuer: "Amazon Web Services Cloud Academy",
-    icon: <Cloud className="w-5 h-5 text-orange-400" />,
-    colorClass: "rgba(251, 146, 60, 0.05)",
-    borderColor: "rgba(251, 146, 60, 0.2)",
+    date: "2024",
+    certificateUrl: "",
+    image: "",
   },
   {
+    _id: "google-ai",
     name: "Google AI for Data Analysis",
     issuer: "Google AI Credentials",
-    icon: <BrainCircuit className="w-5 h-5 text-violet-400" />,
-    colorClass: "rgba(167, 139, 250, 0.05)",
-    borderColor: "rgba(167, 139, 250, 0.2)",
-  },
-  {
-    name: "Google AI for Research & Insights",
-    issuer: "Google AI Credentials",
-    icon: <BrainCircuit className="w-5 h-5 text-violet-400" />,
-    colorClass: "rgba(167, 139, 250, 0.05)",
-    borderColor: "rgba(167, 139, 250, 0.2)",
-  },
-  {
-    name: "Git & GitHub Developer Bootcamp",
-    issuer: "Version Control Systems Certification",
-    icon: <GitBranch className="w-5 h-5 text-emerald-400" />,
-    colorClass: "rgba(52, 211, 153, 0.05)",
-    borderColor: "rgba(52, 211, 153, 0.2)",
-  },
-  {
-    name: "JavaScript Core Bootcamp",
-    issuer: "Advanced Scripting & ES6+",
-    icon: <Code className="w-5 h-5 text-yellow-400" />,
-    colorClass: "rgba(250, 204, 21, 0.05)",
-    borderColor: "rgba(250, 204, 21, 0.2)",
-  },
-  {
-    name: "Python Programming Bootcamp",
-    issuer: "Data Science & Scripting Core",
-    icon: <Code className="w-5 h-5 text-blue-400" />,
-    colorClass: "rgba(96, 165, 250, 0.05)",
-    borderColor: "rgba(96, 165, 250, 0.2)",
-  },
-  {
-    name: "Machine Learning Workshop",
-    issuer: "Practical AI/ML Implementation Training",
-    icon: <Award className="w-5 h-5 text-rose-400" />,
-    colorClass: "rgba(251, 113, 133, 0.05)",
-    borderColor: "rgba(251, 113, 133, 0.2)",
+    date: "2025",
+    certificateUrl: "",
+    image: "",
   },
 ];
 
-export default function Certifications() {
+export default function Certifications({ certifications = [] }: CertificationsProps) {
+  const displayCerts = certifications && certifications.length > 0 ? certifications : defaultCertifications;
+
+  const resolveCertMeta = (certName: string, certIssuer: string) => {
+    const nameLower = certName.toLowerCase();
+    const issuerLower = certIssuer.toLowerCase();
+
+    if (nameLower.includes("database") || nameLower.includes("dbms") || nameLower.includes("sql")) {
+      return {
+        icon: <Database className="w-5 h-5 text-sky-400" />,
+        colorClass: "rgba(56, 189, 248, 0.05)",
+        borderColor: "rgba(56, 189, 248, 0.2)",
+      };
+    }
+    if (nameLower.includes("aws") || nameLower.includes("cloud") || issuerLower.includes("amazon")) {
+      return {
+        icon: <Cloud className="w-5 h-5 text-orange-400" />,
+        colorClass: "rgba(251, 146, 60, 0.05)",
+        borderColor: "rgba(251, 146, 60, 0.2)",
+      };
+    }
+    if (nameLower.includes("ai") || nameLower.includes("intelligence") || nameLower.includes("machine") || nameLower.includes("learning")) {
+      return {
+        icon: <BrainCircuit className="w-5 h-5 text-violet-400" />,
+        colorClass: "rgba(167, 139, 250, 0.05)",
+        borderColor: "rgba(167, 139, 250, 0.2)",
+      };
+    }
+    if (nameLower.includes("git") || nameLower.includes("github") || nameLower.includes("version")) {
+      return {
+        icon: <GitBranch className="w-5 h-5 text-emerald-400" />,
+        colorClass: "rgba(52, 211, 153, 0.05)",
+        borderColor: "rgba(52, 211, 153, 0.2)",
+      };
+    }
+    if (nameLower.includes("javascript") || nameLower.includes("python") || nameLower.includes("code") || nameLower.includes("scripting")) {
+      return {
+        icon: <Code className="w-5 h-5 text-yellow-400" />,
+        colorClass: "rgba(250, 204, 21, 0.05)",
+        borderColor: "rgba(250, 204, 21, 0.2)",
+      };
+    }
+
+    return {
+      icon: <Award className="w-5 h-5 text-rose-400" />,
+      colorClass: "rgba(251, 113, 133, 0.05)",
+      borderColor: "rgba(251, 113, 133, 0.2)",
+    };
+  };
+
   const container: Variants = {
     hidden: {},
     visible: {
@@ -122,29 +144,46 @@ export default function Certifications() {
           viewport={{ once: true, margin: "-100px" }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
         >
-          {certifications.map((cert) => (
-            <motion.div key={cert.name} variants={item} className="flex">
-              <SpotlightCard
-                spotlightColor={cert.colorClass}
-                borderColor={cert.borderColor}
-                className="p-6 w-full flex flex-col justify-between"
-              >
-                <div className="flex flex-col gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
-                    {cert.icon}
+          {displayCerts.map((cert) => {
+            const meta = resolveCertMeta(cert.name, cert.issuer);
+            return (
+              <motion.div key={cert._id} variants={item} className="flex">
+                <SpotlightCard
+                  spotlightColor={meta.colorClass}
+                  borderColor={meta.borderColor}
+                  className="p-6 w-full flex flex-col justify-between"
+                >
+                  <div className="flex flex-col gap-4">
+                    <div className="flex items-center justify-between">
+                      <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
+                        {meta.icon}
+                      </div>
+                      {cert.certificateUrl && (
+                        <a
+                          href={cert.certificateUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#94A3B8] hover:text-sky-400 transition-colors p-1"
+                          title="Verify Certificate"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
+                      )}
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold text-text-primary leading-snug line-clamp-2">
+                        {cert.name}
+                      </h3>
+                      <p className="text-[10px] text-text-muted mt-1 leading-snug">
+                        {cert.issuer}
+                      </p>
+                      <span className="text-[9px] font-mono text-[#64748B] block mt-2">{cert.date}</span>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-text-primary leading-snug line-clamp-2">
-                      {cert.name}
-                    </h3>
-                    <p className="text-[10px] text-text-muted mt-1 leading-snug">
-                      {cert.issuer}
-                    </p>
-                  </div>
-                </div>
-              </SpotlightCard>
-            </motion.div>
-          ))}
+                </SpotlightCard>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </section>

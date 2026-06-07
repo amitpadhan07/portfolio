@@ -3,14 +3,35 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import SpotlightCard from "@/components/ui/SpotlightCard";
-import { Mail, Phone, Send, AlertCircle, CheckCircle2 } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "@/components/ui/BrandIcons";
+import { Mail, Phone, Send, AlertCircle, CheckCircle2, MessageSquare, MapPin } from "lucide-react";
+import * as LucideIcons from "lucide-react";
 import confetti from "canvas-confetti";
 
-export default function Contact() {
+interface ContactInfoItem {
+  email: string;
+  phone: string;
+  address: string;
+  location: string;
+  whatsapp: string;
+  telegram: string;
+}
+
+interface SocialLinkItem {
+  platform: string;
+  url: string;
+  icon: string;
+}
+
+interface ContactProps {
+  contactInfo?: ContactInfoItem | null;
+  socialLinks?: SocialLinkItem[];
+}
+
+export default function Contact({ contactInfo, socialLinks = [] }: ContactProps) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    subject: "General Inquiry",
     message: "",
   });
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -38,8 +59,8 @@ export default function Contact() {
 
       if (response.ok) {
         setStatus("success");
-        setFormData({ name: "", email: "", message: "" });
-        // Trigger premium celebration confetti explosion
+        setFormData({ name: "", email: "", subject: "General Inquiry", message: "" });
+        
         confetti({
           particleCount: 100,
           spread: 70,
@@ -55,6 +76,10 @@ export default function Contact() {
       setErrorMessage("Network error. Please check your connection and try again.");
     }
   };
+
+  const displayEmail = contactInfo?.email || "padhanamit072006@gmail.com";
+  const displayPhone = contactInfo?.phone || "+91 75057 95679";
+  const displayLocation = contactInfo?.location || "India";
 
   return (
     <section id="contact" className="py-24 relative overflow-hidden bg-[#0a0f1d]/40">
@@ -87,7 +112,7 @@ export default function Contact() {
         {/* Content Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
-          {/* Left Details Grid (col-span-5) */}
+          {/* Left Details Grid */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -102,80 +127,85 @@ export default function Contact() {
                   <p className="text-xs text-text-muted mt-1">Feel free to drop a message or reach out on socials.</p>
                 </div>
 
-                <div className="space-y-6">
+                <div className="space-y-5">
                   {/* Email */}
                   <a
-                    href="mailto:padhanamit072006@gmail.com"
+                    href={`mailto:${displayEmail}`}
                     className="flex items-center gap-4 group/item cursor-pointer"
                   >
                     <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-text-secondary group-hover/item:text-primary group-hover/item:border-primary/50 transition-all">
                       <Mail className="w-5 h-5" />
                     </div>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col min-w-0">
                       <span className="text-[10px] font-mono uppercase text-text-muted">Email</span>
-                      <span className="text-sm text-text-primary group-hover/item:text-primary transition-colors">
-                        padhanamit072006@gmail.com
+                      <span className="text-sm text-text-primary group-hover/item:text-primary transition-colors truncate">
+                        {displayEmail}
                       </span>
                     </div>
                   </a>
 
                   {/* Phone */}
-                  <a
-                    href="tel:7505795679"
-                    className="flex items-center gap-4 group/item cursor-pointer"
-                  >
-                    <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-text-secondary group-hover/item:text-primary group-hover/item:border-primary/50 transition-all">
-                      <Phone className="w-5 h-5" />
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-[10px] font-mono uppercase text-text-muted">Phone Number</span>
-                      <span className="text-sm text-text-primary group-hover/item:text-primary transition-colors">
-                        +91 75057 95679
-                      </span>
-                    </div>
-                  </a>
+                  {displayPhone && (
+                    <a
+                      href={`tel:${displayPhone.replace(/\s+/g, "")}`}
+                      className="flex items-center gap-4 group/item cursor-pointer"
+                    >
+                      <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-text-secondary group-hover/item:text-primary group-hover/item:border-primary/50 transition-all">
+                        <Phone className="w-5 h-5" />
+                      </div>
+                      <div className="flex flex-col min-w-0">
+                        <span className="text-[10px] font-mono uppercase text-text-muted">Phone Number</span>
+                        <span className="text-sm text-text-primary group-hover/item:text-primary transition-colors truncate">
+                          {displayPhone}
+                        </span>
+                      </div>
+                    </a>
+                  )}
 
-                  {/* LinkedIn */}
-                  <a
-                    href="https://linkedin.com/in/amitpadhan"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-4 group/item cursor-pointer"
-                  >
-                    <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-text-secondary group-hover/item:text-primary group-hover/item:border-primary/50 transition-all">
-                      <LinkedinIcon className="w-5 h-5" />
+                  {/* Location */}
+                  {displayLocation && (
+                    <div className="flex items-center gap-4 group/item">
+                      <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-text-secondary">
+                        <MapPin className="w-5 h-5" />
+                      </div>
+                      <div className="flex flex-col min-w-0">
+                        <span className="text-[10px] font-mono uppercase text-text-muted">Location</span>
+                        <span className="text-sm text-text-primary">
+                          {displayLocation}
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex flex-col">
-                      <span className="text-[10px] font-mono uppercase text-text-muted">LinkedIn</span>
-                      <span className="text-sm text-text-primary group-hover/item:text-primary transition-colors font-mono">
-                        linkedin.com/in/amitpadhan
-                      </span>
-                    </div>
-                  </a>
+                  )}
 
-                  {/* GitHub */}
-                  <a
-                    href="https://github.com/amitpadhan07"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-4 group/item cursor-pointer"
-                  >
-                    <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-text-secondary group-hover/item:text-primary group-hover/item:border-primary/50 transition-all">
-                      <GithubIcon className="w-5 h-5" />
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-[10px] font-mono uppercase text-text-muted">GitHub</span>
-                      <span className="text-sm text-text-primary group-hover/item:text-primary transition-colors font-mono">
-                        github.com/amitpadhan07
-                      </span>
-                    </div>
-                  </a>
+                  {/* Social links (GitHub, LinkedIn, Telegram etc loaded from active profiles) */}
+                  {socialLinks.map((link, idx) => {
+                    const IconComp = (LucideIcons as any)[link.icon] || MessageSquare;
+                    return (
+                      <a
+                        key={idx}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-4 group/item cursor-pointer"
+                      >
+                        <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-text-secondary group-hover/item:text-primary group-hover/item:border-primary/50 transition-all">
+                          <IconComp className="w-5 h-5" />
+                        </div>
+                        <div className="flex flex-col min-w-0">
+                          <span className="text-[10px] font-mono uppercase text-text-muted">{link.platform}</span>
+                          <span className="text-sm text-text-primary group-hover/item:text-primary transition-colors truncate font-mono">
+                            {link.url.replace(/^https?:\/\/(www\.)?/, "")}
+                          </span>
+                        </div>
+                      </a>
+                    );
+                  })}
                 </div>
               </div>
             </SpotlightCard>
           </motion.div>
 
-          {/* Right Form Card (col-span-7) */}
+          {/* Right Form Card */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -188,7 +218,6 @@ export default function Contact() {
                 <h3 className="text-lg font-bold text-text-primary mb-6">Send Message</h3>
 
                 <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-                  {/* Name field */}
                   <div className="flex flex-col gap-2">
                     <label htmlFor="name" className="text-xs font-mono uppercase text-text-muted">
                       Full Name
@@ -205,7 +234,6 @@ export default function Contact() {
                     />
                   </div>
 
-                  {/* Email field */}
                   <div className="flex flex-col gap-2">
                     <label htmlFor="email" className="text-xs font-mono uppercase text-text-muted">
                       Email Address
@@ -222,7 +250,22 @@ export default function Contact() {
                     />
                   </div>
 
-                  {/* Message field */}
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="subject" className="text-xs font-mono uppercase text-text-muted">
+                      Subject
+                    </label>
+                    <input
+                      type="text"
+                      id="subject"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      required
+                      placeholder="General Inquiry"
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-text-primary placeholder:text-text-muted focus:border-primary/80 focus:bg-white/[0.08] outline-none transition-all"
+                    />
+                  </div>
+
                   <div className="flex flex-col gap-2">
                     <label htmlFor="message" className="text-xs font-mono uppercase text-text-muted">
                       Your Message
@@ -233,13 +276,12 @@ export default function Contact() {
                       value={formData.message}
                       onChange={handleChange}
                       required
-                      rows={5}
-                      placeholder="Write your project details here..."
+                      rows={4}
+                      placeholder="Write your project details or inquiries here..."
                       className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-text-primary placeholder:text-text-muted focus:border-primary/80 focus:bg-white/[0.08] outline-none transition-all resize-none"
                     />
                   </div>
 
-                  {/* Submission triggers */}
                   <button
                     type="submit"
                     disabled={status === "sending"}
@@ -259,7 +301,6 @@ export default function Contact() {
                   </button>
                 </form>
 
-                {/* Submissions Toast Alert */}
                 <div className="mt-4 min-h-12 flex flex-col justify-end">
                   {status === "success" && (
                     <motion.div

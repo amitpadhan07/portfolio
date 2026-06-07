@@ -1,9 +1,19 @@
 "use client";
 
 import { ArrowUp } from "lucide-react";
-import { GithubIcon, LinkedinIcon, InstagramIcon, TelegramIcon } from "@/components/ui/BrandIcons";
+import * as LucideIcons from "lucide-react";
 
-export default function Footer() {
+interface SocialLinkItem {
+  platform: string;
+  url: string;
+  icon: string;
+}
+
+interface FooterProps {
+  socialLinks?: SocialLinkItem[];
+}
+
+export default function Footer({ socialLinks = [] }: FooterProps) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -31,42 +41,22 @@ export default function Footer() {
 
         {/* Center: Social links */}
         <div className="flex items-center gap-4">
-          <a
-            href="https://github.com/amitpadhan07"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-10 h-10 rounded-full border border-white/5 bg-white/5 flex items-center justify-center text-text-secondary hover:text-primary hover:border-primary/50 hover:bg-primary/5 transition-all cursor-pointer"
-            aria-label="GitHub Profile"
-          >
-            <GithubIcon className="w-4 h-4" />
-          </a>
-          <a
-            href="https://linkedin.com/in/amitpadhan"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-10 h-10 rounded-full border border-white/5 bg-white/5 flex items-center justify-center text-text-secondary hover:text-primary hover:border-primary/50 hover:bg-primary/5 transition-all cursor-pointer"
-            aria-label="LinkedIn Profile"
-          >
-            <LinkedinIcon className="w-4 h-4" />
-          </a>
-          <a
-            href="https://www.instagram.com/padhan_amit_07"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-10 h-10 rounded-full border border-white/5 bg-white/5 flex items-center justify-center text-text-secondary hover:text-primary hover:border-primary/50 hover:bg-primary/5 transition-all cursor-pointer"
-            aria-label="Instagram Profile"
-          >
-            <InstagramIcon className="w-4 h-4" />
-          </a>
-          <a
-            href="https://t.me/amitpad_07"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-10 h-10 rounded-full border border-white/5 bg-white/5 flex items-center justify-center text-text-secondary hover:text-primary hover:border-primary/50 hover:bg-primary/5 transition-all cursor-pointer"
-            aria-label="Telegram Channel"
-          >
-            <TelegramIcon className="w-4 h-4" />
-          </a>
+          {socialLinks.map((link, idx) => {
+            // Dynamically resolve lucide icon name or fallback to Link2
+            const IconComponent = (LucideIcons as any)[link.icon] || LucideIcons.Link2;
+            return (
+              <a
+                key={idx}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full border border-white/5 bg-white/5 flex items-center justify-center text-text-secondary hover:text-primary hover:border-primary/50 hover:bg-primary/5 transition-all cursor-pointer"
+                aria-label={`${link.platform} Profile`}
+              >
+                <IconComponent className="w-4 h-4" />
+              </a>
+            );
+          })}
         </div>
 
         {/* Right: Scroll-to-top button */}

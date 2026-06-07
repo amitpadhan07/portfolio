@@ -3,28 +3,48 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, FileText, Send, Layers } from "lucide-react";
+import { incrementResumeDownloads } from "@/actions/resume";
 
-const roles = [
+interface HeroProps {
+  profile?: {
+    name: string;
+    title: string;
+    heroHeading: string;
+    heroDescription: string;
+    profilePicture: string;
+    heroImage: string;
+  } | null;
+  resume?: {
+    pdfUrl: string;
+  } | null;
+}
+
+const defaultRoles = [
   "Full Stack Developer",
   "AI Engineer",
   "Machine Learning Enthusiast",
   "Problem Solver",
 ];
 
-export default function Hero() {
+export default function Hero({ profile, resume }: HeroProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
+  // Dynamically resolve roles from profile title or use defaults
+  const roles = profile?.title
+    ? profile.title.split(",").map((r) => r.trim()).filter((r) => r.length > 0)
+    : defaultRoles;
+
   // Typewriter effect
   useEffect(() => {
+    if (roles.length === 0) return;
     let timer: NodeJS.Timeout;
-    const currentRole = roles[roleIndex];
+    const currentRole = roles[roleIndex % roles.length];
     const typingSpeed = isDeleting ? 30 : 80;
 
     if (!isDeleting && displayText === currentRole) {
-      // Pause before deleting
       timer = setTimeout(() => setIsDeleting(true), 1500);
     } else if (isDeleting && displayText === "") {
       setIsDeleting(false);
@@ -40,7 +60,7 @@ export default function Hero() {
     }
 
     return () => clearTimeout(timer);
-  }, [displayText, isDeleting, roleIndex]);
+  }, [displayText, isDeleting, roleIndex, roles]);
 
   // Particle network canvas animation
   useEffect(() => {
@@ -53,7 +73,6 @@ export default function Hero() {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    // Track window resize
     const handleResize = () => {
       if (!canvas) return;
       width = canvas.width = window.innerWidth;
@@ -61,7 +80,6 @@ export default function Hero() {
     };
     window.addEventListener("resize", handleResize);
 
-    // Particles array
     const particleCount = Math.min(Math.floor((width * height) / 15000), 80);
     const particles: Array<{
       x: number;
@@ -93,18 +111,15 @@ export default function Hero() {
     window.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseleave", handleMouseLeave);
 
-    // Animation loop
     const animate = () => {
       ctx.clearRect(0, 0, width, height);
       ctx.fillStyle = "rgba(56, 189, 248, 0.5)";
       ctx.strokeStyle = "rgba(139, 92, 246, 0.05)";
 
-      // Draw grid points (background overlay)
       particles.forEach((p) => {
         p.x += p.vx;
         p.y += p.vy;
 
-        // Bounce off walls
         if (p.x < 0 || p.x > width) p.vx *= -1;
         if (p.y < 0 || p.y > height) p.vy *= -1;
 
@@ -113,7 +128,6 @@ export default function Hero() {
         ctx.fill();
       });
 
-      // Draw lines between particles that are close
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -131,7 +145,6 @@ export default function Hero() {
         }
       }
 
-      // Draw line from mouse to nearby particles
       if (mouse.x !== -1000) {
         particles.forEach((p) => {
           const dx = p.x - mouse.x;
@@ -167,6 +180,23 @@ export default function Hero() {
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
+  const handleResumeClick = async () => {
+    try {
+      await incrementResumeDownloads();
+    } catch (err) {
+      console.error("Failed to increment resume download counter:", err);
+    }
+  };
+
+  const displayName = profile?.name || "Amit Padhan";
+  const displayHeading = profile?.heroHeading || "Hi, I'm Amit Padhan";
+  const displayDescription = profile?.heroDescription || "AI Full Stack Developer & Software Engineer";
+  const displayAvatar = profile?.profilePicture || "/Amit.jpg";
+  const displayBgAvatar = profile?.heroImage || null;
+
+  // Use resume URL if available, otherwise default to legacy static print file
+  const resumeUrl = resume?.pdfUrl || "/Amit_Padhan_Resume.html";
+
   return (
     <section
       id="home"
@@ -195,8 +225,8 @@ export default function Hero() {
         >
           <div className="w-full h-full rounded-full overflow-hidden bg-slate-900 border-2 border-slate-950">
             <img
-              src="/Amit.jpg"
-              alt="Amit Padhan Profile"
+              src={displayAvatar}
+              alt={`${displayName} Profile`}
               className="w-full h-full object-cover object-center"
             />
           </div>
@@ -210,7 +240,7 @@ export default function Hero() {
           className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-primary text-xs font-medium uppercase tracking-wider mb-6 font-mono"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-          Sophomore at Graphic Era Hill University
+          {displayDescription}
         </motion.div>
 
         {/* Main Header Title */}
@@ -220,18 +250,19 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.15 }}
           className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-4 text-gradient"
         >
-          Hi, I&apos;m <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Amit Padhan</span>
+          {displayHeading}
         </motion.h1>
 
         {/* Static Subtitle */}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.25 }}
-          className="text-lg sm:text-xl md:text-2xl text-text-secondary font-medium tracking-wide mb-6"
-        >
-          AI Full Stack Developer & Software Engineer
-        </motion.h2>
+        {displayBgAvatar && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.15 }}
+            className="absolute inset-0 -z-10 flex items-center justify-center pointer-events-none"
+          >
+            <img src={displayBgAvatar} alt="Background Art" className="w-[500px] h-[500px] object-contain" />
+          </motion.div>
+        )}
 
         {/* Dynamic Typewriter Description */}
         <motion.div
@@ -261,8 +292,9 @@ export default function Hero() {
           </button>
           
           <a
-            href="/Amit_Padhan_Resume.html"
+            href={resumeUrl}
             target="_blank"
+            onClick={handleResumeClick}
             className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold uppercase tracking-wider bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 text-text-primary transition-all cursor-pointer"
           >
             <FileText className="w-4 h-4" />

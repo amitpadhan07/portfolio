@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import SpotlightCard from "@/components/ui/SpotlightCard";
-import { GraduationCap, Code, FolderGit2, BookOpen } from "lucide-react";
+import { GraduationCap, Code, FolderGit2, BookOpen, Sparkles } from "lucide-react";
 
 interface CounterProps {
   value: number;
@@ -48,7 +48,54 @@ function Counter({ value, suffix = "", duration = 1.5 }: CounterProps) {
   );
 }
 
-export default function About() {
+interface StatItem {
+  label: string;
+  value: number;
+  suffix: string;
+  subtext: string;
+}
+
+interface AboutProps {
+  profile?: {
+    aboutMe: string;
+    stats: StatItem[];
+  } | null;
+}
+
+const defaultStats: StatItem[] = [
+  {
+    label: "Projects Completed",
+    value: 4,
+    suffix: "+",
+    subtext: "Production-ready apps",
+  },
+  {
+    label: "DSA Solved",
+    value: 200,
+    suffix: "+",
+    subtext: "Leetcode & local platforms",
+  },
+  {
+    label: "Technologies Mastered",
+    value: 20,
+    suffix: "+",
+    subtext: "Languages, Frameworks, DBs",
+  },
+];
+
+export default function About({ profile }: AboutProps) {
+  const stats = profile?.stats && profile.stats.length > 0 ? profile.stats : defaultStats;
+  const bio = profile?.aboutMe || "I am a highly motivated Computer Science Engineering student specializing in AI Full Stack. My academic focus is on bridging the gap between core software engineering principles and intelligent cloud-based architectures. I enjoy designing optimal database structures, writing robust APIs, and assembling clean frontend interfaces.";
+
+  // Utility to map statistics labels to corresponding Lucide icons
+  const getStatIcon = (label: string) => {
+    const lower = label.toLowerCase();
+    if (lower.includes("project")) return <FolderGit2 className="w-7 h-7" />;
+    if (lower.includes("code") || lower.includes("dsa") || lower.includes("solve")) return <Code className="w-7 h-7" />;
+    if (lower.includes("tech") || lower.includes("skill") || lower.includes("graduation")) return <GraduationCap className="w-7 h-7" />;
+    return <Sparkles className="w-7 h-7" />;
+  };
+
   return (
     <section id="about" className="py-24 relative overflow-hidden bg-[#0a0f1d]/40">
       {/* Background decorations */}
@@ -94,18 +141,13 @@ export default function About() {
                     <GraduationCap className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-text-primary">Education Journey</h3>
-                    <p className="text-xs text-text-muted">Graphic Era Hill University, Dehradun</p>
+                    <h3 className="text-lg font-bold text-text-primary">Professional Journey</h3>
+                    <p className="text-xs text-text-muted">AI Full Stack Developer & Systems Designer</p>
                   </div>
                 </div>
 
-                <div className="space-y-4 text-sm text-text-secondary leading-relaxed font-light">
-                  <p>
-                    I am a highly motivated B.Tech Computer Science Engineering student specializing in **AI Full Stack**. My academic tenure (Expected Graduation: **2028**) is focused on bridging the gap between core software engineering principles and intelligent cloud-based architectures.
-                  </p>
-                  <p>
-                    I enjoy designing optimal database structures, writing robust APIs, and assembling clean frontend interfaces. Beyond development, my curiosity drives me towards understanding Machine Learning algorithms, NLP processing layers, and Large Language Models.
-                  </p>
+                <div className="space-y-4 text-sm text-text-secondary leading-relaxed font-light whitespace-pre-line">
+                  {bio}
                 </div>
               </div>
 
@@ -113,11 +155,11 @@ export default function About() {
               <div className="grid grid-cols-2 gap-4 mt-8 pt-6 border-t border-white/5 text-xs">
                 <div className="flex items-center gap-2 text-text-secondary">
                   <BookOpen className="w-4 h-4 text-primary" />
-                  <span>AI Full Stack Branch</span>
+                  <span>Continuous Learner</span>
                 </div>
                 <div className="flex items-center gap-2 text-text-secondary">
                   <Code className="w-4 h-4 text-secondary" />
-                  <span>OOP & DSA Specialist</span>
+                  <span>Algorithms & Design Patterns</span>
                 </div>
               </div>
             </SpotlightCard>
@@ -131,41 +173,18 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="lg:col-span-5 flex flex-col gap-6"
           >
-            {/* Stat Card 1: Projects */}
-            <SpotlightCard className="p-6 flex flex-row items-center justify-between">
-              <div className="flex flex-col gap-1">
-                <span className="text-xs text-text-muted uppercase tracking-wider font-mono">Projects Completed</span>
-                <Counter value={4} suffix="+" />
-                <span className="text-[10px] text-text-secondary mt-1">Production-ready apps</span>
-              </div>
-              <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-primary">
-                <FolderGit2 className="w-7 h-7" />
-              </div>
-            </SpotlightCard>
-
-            {/* Stat Card 2: DSA */}
-            <SpotlightCard className="p-6 flex flex-row items-center justify-between">
-              <div className="flex flex-col gap-1">
-                <span className="text-xs text-text-muted uppercase tracking-wider font-mono">DSA Solved</span>
-                <Counter value={200} suffix="+" />
-                <span className="text-[10px] text-text-secondary mt-1">Leetcode & local platforms</span>
-              </div>
-              <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-secondary">
-                <Code className="w-7 h-7" />
-              </div>
-            </SpotlightCard>
-
-            {/* Stat Card 3: Technologies */}
-            <SpotlightCard className="p-6 flex flex-row items-center justify-between">
-              <div className="flex flex-col gap-1">
-                <span className="text-xs text-text-muted uppercase tracking-wider font-mono">Technologies Mastered</span>
-                <Counter value={20} suffix="+" />
-                <span className="text-[10px] text-text-secondary mt-1">Languages, Frameworks, DBs</span>
-              </div>
-              <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-primary">
-                <GraduationCap className="w-7 h-7" />
-              </div>
-            </SpotlightCard>
+            {stats.map((stat, index) => (
+              <SpotlightCard key={index} className="p-6 flex flex-row items-center justify-between">
+                <div className="flex flex-col gap-1">
+                  <span className="text-xs text-text-muted uppercase tracking-wider font-mono">{stat.label}</span>
+                  <Counter value={stat.value} suffix={stat.suffix} />
+                  <span className="text-[10px] text-text-secondary mt-1">{stat.subtext}</span>
+                </div>
+                <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-primary">
+                  {getStatIcon(stat.label)}
+                </div>
+              </SpotlightCard>
+            ))}
           </motion.div>
         </div>
       </div>

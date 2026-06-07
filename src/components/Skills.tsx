@@ -2,11 +2,18 @@
 
 import { motion, Variants } from "framer-motion";
 import SpotlightCard from "@/components/ui/SpotlightCard";
-import { Monitor, Server, Terminal, BrainCircuit, Star } from "lucide-react";
+import { Monitor, Server, Terminal, BrainCircuit, Star, Database, Cloud } from "lucide-react";
 
 interface SkillItem {
   name: string;
+  icon?: string;
+  category: "Frontend" | "Backend" | "Database" | "Programming" | "AI/ML" | "Cloud";
   level: "Advanced" | "Intermediate" | "Familiar";
+  order?: number;
+}
+
+interface SkillsProps {
+  skills?: SkillItem[];
 }
 
 interface SkillCategory {
@@ -17,41 +24,88 @@ interface SkillCategory {
   skills: SkillItem[];
 }
 
-const skillCategories: SkillCategory[] = [
+const categoryMetaMap: Record<string, { title: string; icon: React.ReactNode; colorClass: string; borderColor: string }> = {
+  Frontend: {
+    title: "Frontend Development",
+    icon: <Monitor className="w-5 h-5 text-sky-400" />,
+    colorClass: "rgba(56, 189, 248, 0.08)",
+    borderColor: "rgba(56, 189, 248, 0.3)",
+  },
+  Backend: {
+    title: "Backend Services",
+    icon: <Server className="w-5 h-5 text-violet-400" />,
+    colorClass: "rgba(139, 92, 246, 0.08)",
+    borderColor: "rgba(139, 92, 246, 0.3)",
+  },
+  Database: {
+    title: "Databases & Storage",
+    icon: <Database className="w-5 h-5 text-emerald-400" />,
+    colorClass: "rgba(52, 211, 153, 0.08)",
+    borderColor: "rgba(52, 211, 153, 0.3)",
+  },
+  Programming: {
+    title: "Languages & OOP Core",
+    icon: <Terminal className="w-5 h-5 text-amber-400" />,
+    colorClass: "rgba(245, 158, 11, 0.08)",
+    borderColor: "rgba(245, 158, 11, 0.3)",
+  },
+  "AI/ML": {
+    title: "AI & Machine Learning",
+    icon: <BrainCircuit className="w-5 h-5 text-rose-400" />,
+    colorClass: "rgba(251, 113, 133, 0.08)",
+    borderColor: "rgba(251, 113, 133, 0.3)",
+  },
+  Cloud: {
+    title: "Cloud & Devops",
+    icon: <Cloud className="w-5 h-5 text-blue-400" />,
+    colorClass: "rgba(96, 165, 250, 0.08)",
+    borderColor: "rgba(96, 165, 250, 0.3)",
+  },
+};
+
+const defaultCategories: SkillCategory[] = [
   {
     title: "Frontend Development",
-    icon: <Monitor className="w-5 h-5 text-primary" />,
+    icon: <Monitor className="w-5 h-5 text-sky-400" />,
     colorClass: "rgba(56, 189, 248, 0.08)",
     borderColor: "rgba(56, 189, 248, 0.3)",
     skills: [
-      { name: "React.js", level: "Advanced" },
-      { name: "Next.js", level: "Advanced" },
-      { name: "HTML5 & CSS3", level: "Advanced" },
-      { name: "Tailwind CSS", level: "Advanced" },
+      { name: "React.js", category: "Frontend", level: "Advanced" },
+      { name: "Next.js", category: "Frontend", level: "Advanced" },
+      { name: "HTML5 & CSS3", category: "Frontend", level: "Advanced" },
+      { name: "Tailwind CSS", category: "Frontend", level: "Advanced" },
     ],
   },
   {
-    title: "Backend & Databases",
-    icon: <Server className="w-5 h-5 text-secondary" />,
+    title: "Backend Services",
+    icon: <Server className="w-5 h-5 text-violet-400" />,
     colorClass: "rgba(139, 92, 246, 0.08)",
     borderColor: "rgba(139, 92, 246, 0.3)",
     skills: [
-      { name: "Node.js", level: "Advanced" },
-      { name: "Express.js", level: "Advanced" },
-      { name: "MongoDB", level: "Advanced" },
-      { name: "PostgreSQL / SQL", level: "Intermediate" },
+      { name: "Node.js", category: "Backend", level: "Advanced" },
+      { name: "Express.js", category: "Backend", level: "Advanced" },
     ],
   },
   {
-    title: "Languages & Core",
-    icon: <Terminal className="w-5 h-5 text-emerald-400" />,
+    title: "Databases & Storage",
+    icon: <Database className="w-5 h-5 text-emerald-400" />,
     colorClass: "rgba(52, 211, 153, 0.08)",
     borderColor: "rgba(52, 211, 153, 0.3)",
     skills: [
-      { name: "JavaScript", level: "Advanced" },
-      { name: "TypeScript", level: "Advanced" },
-      { name: "Python", level: "Advanced" },
-      { name: "Java / C++", level: "Intermediate" },
+      { name: "MongoDB", category: "Database", level: "Advanced" },
+      { name: "PostgreSQL / SQL", category: "Database", level: "Intermediate" },
+    ],
+  },
+  {
+    title: "Languages & OOP Core",
+    icon: <Terminal className="w-5 h-5 text-amber-400" />,
+    colorClass: "rgba(245, 158, 11, 0.08)",
+    borderColor: "rgba(245, 158, 11, 0.3)",
+    skills: [
+      { name: "JavaScript", category: "Programming", level: "Advanced" },
+      { name: "TypeScript", category: "Programming", level: "Advanced" },
+      { name: "Python", category: "Programming", level: "Advanced" },
+      { name: "Java / C++", category: "Programming", level: "Intermediate" },
     ],
   },
   {
@@ -60,15 +114,50 @@ const skillCategories: SkillCategory[] = [
     colorClass: "rgba(251, 113, 133, 0.08)",
     borderColor: "rgba(251, 113, 133, 0.3)",
     skills: [
-      { name: "Machine Learning", level: "Intermediate" },
-      { name: "NLP Fundamentals", level: "Intermediate" },
-      { name: "Generative AI", level: "Intermediate" },
-      { name: "LLMs / Prompting", level: "Intermediate" },
+      { name: "Machine Learning", category: "AI/ML", level: "Intermediate" },
+      { name: "NLP Fundamentals", category: "AI/ML", level: "Intermediate" },
+      { name: "Generative AI", category: "AI/ML", level: "Intermediate" },
+      { name: "LLMs / Prompting", category: "AI/ML", level: "Intermediate" },
     ],
   },
 ];
 
-export default function Skills() {
+export default function Skills({ skills = [] }: SkillsProps) {
+  // Dynamically group skills by category if list is not empty
+  let categories: SkillCategory[] = [];
+
+  if (skills && skills.length > 0) {
+    const grouped: Record<string, SkillItem[]> = {};
+    skills.forEach((skill) => {
+      if (!grouped[skill.category]) {
+        grouped[skill.category] = [];
+      }
+      grouped[skill.category].push(skill);
+    });
+
+    // Sort key lists for stable presentation
+    const orderedKeys = ["Frontend", "Backend", "Database", "Programming", "AI/ML", "Cloud"];
+    orderedKeys.forEach((key) => {
+      if (grouped[key] && grouped[key].length > 0) {
+        const meta = categoryMetaMap[key] || {
+          title: key,
+          icon: <Terminal className="w-5 h-5" />,
+          colorClass: "rgba(255,255,255,0.03)",
+          borderColor: "rgba(255,255,255,0.1)",
+        };
+        categories.push({
+          title: meta.title,
+          icon: meta.icon,
+          colorClass: meta.colorClass,
+          borderColor: meta.borderColor,
+          skills: grouped[key].sort((a, b) => (a.order || 0) - (b.order || 0)),
+        });
+      }
+    });
+  } else {
+    categories = defaultCategories;
+  }
+
   const containerVariants: Variants = {
     hidden: {},
     visible: {
@@ -120,7 +209,7 @@ export default function Skills() {
           viewport={{ once: true, margin: "-100px" }}
           className="grid grid-cols-1 md:grid-cols-2 gap-8"
         >
-          {skillCategories.map((category) => (
+          {categories.map((category) => (
             <motion.div key={category.title} variants={cardVariants} className="flex">
               <SpotlightCard
                 spotlightColor={category.colorClass}

@@ -5,6 +5,10 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/ui/CustomCursor";
 import ScrollProgress from "@/components/ui/ScrollProgress";
+import AnalyticsTracker from "@/components/AnalyticsTracker";
+import { connectToDatabase } from "@/lib/db";
+import { Settings } from "@/models/Settings";
+import { SocialLink } from "@/models/SocialLink";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,42 +22,61 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Amit Padhan | AI Full Stack Developer & Software Engineer",
-  description: "Portfolio of Amit Padhan, an AI Full Stack Developer & Software Engineer sophomore. Specializing in React, Next.js, Node.js, databases, and AI/Machine Learning integrations.",
-  keywords: [
-    "Amit Padhan",
-    "AI Full Stack Developer",
-    "Software Engineer Portfolio",
-    "Graphic Era Hill University",
-    "React Developer",
-    "Next.js Developer",
-    "Machine Learning Enthusiast",
-  ],
-  authors: [{ name: "Amit Padhan" }],
-  creator: "Amit Padhan",
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://github.com/amitpadhan07",
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    await connectToDatabase();
+    const settings = await Settings.findOne().lean();
+    if (settings) {
+      return {
+        title: settings.siteTitle,
+        description: settings.metaDescription,
+        keywords: settings.keywords || [],
+        authors: [{ name: "Amit Padhan" }],
+        creator: "Amit Padhan",
+        openGraph: {
+          type: "website",
+          locale: "en_US",
+          url: "https://github.com/amitpadhan07",
+          title: settings.siteTitle,
+          description: settings.metaDescription,
+          siteName: "Amit Padhan Portfolio",
+          images: [
+            {
+              url: "/legacy/assets/images/Amit.jpg",
+              width: 800,
+              height: 800,
+              alt: "Amit Padhan Profile",
+            },
+          ],
+        },
+        twitter: {
+          card: "summary_large_image",
+          title: settings.siteTitle,
+          description: settings.metaDescription,
+        },
+      };
+    }
+  } catch (err) {
+    console.error("Error generating dynamic metadata:", err);
+  }
+
+  // Fallback metadata if DB settings are empty or failed to load
+  return {
     title: "Amit Padhan | AI Full Stack Developer & Software Engineer",
-    description: "Explore the academic milestones, achievements, skills, and full-stack projects of Amit Padhan.",
-    siteName: "Amit Padhan Portfolio",
-    images: [
-      {
-        url: "/legacy/assets/images/Amit.jpg", // fallback to original avatar image in legacy folder if served
-        width: 800,
-        height: 800,
-        alt: "Amit Padhan Profile",
-      },
+    description: "Portfolio of Amit Padhan, an AI Full Stack Developer & Software Engineer sophomore. Specializing in React, Next.js, Node.js, databases, and AI/Machine Learning integrations.",
+    keywords: [
+      "Amit Padhan",
+      "AI Full Stack Developer",
+      "Software Engineer Portfolio",
+      "Graphic Era Hill University",
+      "React Developer",
+      "Next.js Developer",
+      "Machine Learning Enthusiast",
     ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Amit Padhan | AI Full Stack Developer",
-    description: "Explore the projects and skills of Amit Padhan, AI Full Stack Developer & CSE Student.",
-  },
-};
+    authors: [{ name: "Amit Padhan" }],
+    creator: "Amit Padhan",
+  };
+}
 
 export const viewport: Viewport = {
   themeColor: "#0f172a",
@@ -61,11 +84,24 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  let socialLinks: any[] = [];
+  try {
+    await connectToDatabase();
+    const docs = await SocialLink.find({ active: true }).sort({ order: 1 }).lean();
+    socialLinks = docs.map((d: any) => ({
+      platform: d.platform,
+      url: d.url,
+      icon: d.icon,
+    }));
+  } catch (err) {
+    console.error("Failed to load active social links for footer:", err);
+  }
+
   return (
     <html
       lang="en"
@@ -74,12 +110,13 @@ export default function RootLayout({
       <body className="bg-bg-dark text-text-primary min-h-screen flex flex-col antialiased">
         <ScrollProgress />
         <CustomCursor />
+        <AnalyticsTracker />
         <Navbar />
         {/* Main Content Area */}
         <main className="flex-grow z-10">
           {children}
         </main>
-        <Footer />
+        <Footer socialLinks={socialLinks} />
       </body>
     </html>
   );
