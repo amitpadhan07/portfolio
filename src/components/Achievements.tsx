@@ -2,8 +2,8 @@
 
 import { motion, Variants } from "framer-motion";
 import SpotlightCard from "@/components/ui/SpotlightCard";
-import * as LucideIcons from "lucide-react";
 import { Sparkles } from "lucide-react";
+import { getAchievementIcon } from "@/lib/icons";
 
 interface AchievementItem {
   _id: string;
@@ -89,7 +89,7 @@ export default function Achievements({ achievements = [] }: AchievementsProps) {
         >
           {displayAchievements.map((ach) => {
             // Dynamically resolve Lucide Icon or fallback to Sparkles
-            const IconComponent = (LucideIcons as any)[ach.icon] || Sparkles;
+            const IconComponent = getAchievementIcon(ach.icon);
 
             return (
               <motion.div key={ach._id} variants={item} className="flex">

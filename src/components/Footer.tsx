@@ -1,8 +1,8 @@
 "use client";
 
 import { ArrowUp } from "lucide-react";
-import * as LucideIcons from "lucide-react";
 import { usePathname } from "next/navigation";
+import { getSocialIcon } from "@/lib/icons";
 
 interface SocialLinkItem {
   platform: string;
@@ -50,8 +50,7 @@ export default function Footer({ socialLinks = [] }: FooterProps) {
         {/* Center: Social links */}
         <div className="flex items-center gap-4">
           {socialLinks.map((link, idx) => {
-            // Dynamically resolve lucide icon name or fallback to Link2
-            const IconComponent = (LucideIcons as any)[link.icon] || LucideIcons.Link2;
+            const IconComponent = getSocialIcon(link.icon);
             return (
               <a
                 key={idx}

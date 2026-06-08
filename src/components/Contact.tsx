@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import SpotlightCard from "@/components/ui/SpotlightCard";
 import { Mail, Phone, Send, AlertCircle, CheckCircle2, MessageSquare, MapPin } from "lucide-react";
-import * as LucideIcons from "lucide-react";
 import confetti from "canvas-confetti";
+import { getSocialIcon } from "@/lib/icons";
 
 interface ContactInfoItem {
   email: string;
@@ -179,7 +179,7 @@ export default function Contact({ contactInfo, socialLinks = [] }: ContactProps)
 
                   {/* Social links (GitHub, LinkedIn, Telegram etc loaded from active profiles) */}
                   {socialLinks.map((link, idx) => {
-                    const IconComp = (LucideIcons as any)[link.icon] || MessageSquare;
+                    const IconComp = getSocialIcon(link.icon);
                     return (
                       <a
                         key={idx}
