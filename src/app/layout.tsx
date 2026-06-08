@@ -23,11 +23,14 @@ const geistMono = Geist_Mono({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
+  const defaultBaseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+  
   try {
     await connectToDatabase();
     const settings = await Settings.findOne().lean();
     if (settings) {
       return {
+        metadataBase: new URL(defaultBaseUrl),
         title: settings.siteTitle,
         description: settings.metaDescription,
         keywords: settings.keywords || [],
@@ -62,6 +65,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   // Fallback metadata if DB settings are empty or failed to load
   return {
+    metadataBase: new URL(defaultBaseUrl),
     title: "Amit Padhan | AI Full Stack Developer & Software Engineer",
     description: "Portfolio of Amit Padhan, an AI Full Stack Developer & Software Engineer sophomore. Specializing in React, Next.js, Node.js, databases, and AI/Machine Learning integrations.",
     keywords: [

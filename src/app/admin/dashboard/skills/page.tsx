@@ -3,7 +3,7 @@ import { connectToDatabase } from "@/lib/db";
 import { Skill } from "@/models/Skill";
 import SkillsManager from "@/components/admin/SkillsManager";
 
-export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 export default async function AdminSkillsPage() {
   await connectToDatabase();

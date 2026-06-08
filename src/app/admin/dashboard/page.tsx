@@ -25,7 +25,7 @@ import {
   Terminal,
 } from "lucide-react";
 
-export const revalidate = 0; // Disable server caching to load fresh stats
+export const dynamic = "force-dynamic";
 
 export default async function AdminDashboardOverview() {
   await connectToDatabase();

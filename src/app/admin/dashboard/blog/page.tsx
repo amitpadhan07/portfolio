@@ -3,7 +3,7 @@ import { connectToDatabase } from "@/lib/db";
 import { BlogPost } from "@/models/BlogPost";
 import BlogManager from "@/components/admin/BlogManager";
 
-export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 export default async function AdminBlogPage() {
   await connectToDatabase();

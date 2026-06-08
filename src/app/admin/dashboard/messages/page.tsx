@@ -3,7 +3,7 @@ import { connectToDatabase } from "@/lib/db";
 import { Message } from "@/models/Message";
 import MessagesInbox from "@/components/admin/MessagesInbox";
 
-export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 export default async function AdminMessagesPage() {
   await connectToDatabase();

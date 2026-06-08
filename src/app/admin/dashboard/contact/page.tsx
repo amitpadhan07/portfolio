@@ -3,7 +3,7 @@ import { connectToDatabase } from "@/lib/db";
 import { ContactInfo } from "@/models/ContactInfo";
 import ContactInfoForm from "@/components/admin/ContactInfoForm";
 
-export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 export default async function AdminContactPage() {
   await connectToDatabase();

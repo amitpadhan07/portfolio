@@ -3,7 +3,7 @@ import { connectToDatabase } from "@/lib/db";
 import { Education } from "@/models/Education";
 import EducationManager from "@/components/admin/EducationManager";
 
-export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 export default async function AdminEducationPage() {
   await connectToDatabase();

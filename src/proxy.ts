@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import type { NextRequest } from "next/server";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Retrieve token if present
@@ -13,8 +13,15 @@ export async function middleware(request: NextRequest) {
 
   const isAuthenticated = !!token;
 
+  // Redirect `/dashboard` or `/dashboard/:path*` to `/admin/dashboard/:path*`
+  if (pathname.startsWith("/dashboard")) {
+    const targetPath = pathname.replace("/dashboard", "/admin/dashboard");
+    return NextResponse.redirect(new URL(targetPath, request.url));
+  }
+
   // 1. If user is trying to access dashboard/admin edits and NOT authenticated, redirect to login
-  if (pathname.startsWith("/admin/dashboard") && !isAuthenticated) {
+  const isDashboardRoute = pathname.startsWith("/admin/dashboard");
+  if (isDashboardRoute && !isAuthenticated) {
     const loginUrl = new URL("/admin/login", request.url);
     // Keep target url in redirect param
     loginUrl.searchParams.set("callbackUrl", request.url);
@@ -39,5 +46,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*", "/dashboard/:path*"],
 };

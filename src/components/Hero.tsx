@@ -248,9 +248,29 @@ export default function Hero({ profile, resume }: HeroProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-4 text-gradient"
+          className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-4 text-[#F8FAFC]"
         >
-          {displayHeading}
+          {displayHeading.includes(displayName) ? (
+            <>
+              {displayHeading.split(displayName)[0]}
+              <span className="text-gradient-accent">{displayName}</span>
+              {displayHeading.split(displayName)[1]}
+            </>
+          ) : displayHeading.includes("Amit Padhan") ? (
+            <>
+              {displayHeading.split("Amit Padhan")[0]}
+              <span className="text-gradient-accent">Amit Padhan</span>
+              {displayHeading.split("Amit Padhan")[1]}
+            </>
+          ) : displayHeading.includes("Amit") ? (
+            <>
+              {displayHeading.split("Amit")[0]}
+              <span className="text-gradient-accent">Amit</span>
+              {displayHeading.split("Amit")[1]}
+            </>
+          ) : (
+            displayHeading
+          )}
         </motion.h1>
 
         {/* Static Subtitle */}

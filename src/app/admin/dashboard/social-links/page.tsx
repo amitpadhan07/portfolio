@@ -3,7 +3,7 @@ import { connectToDatabase } from "@/lib/db";
 import { SocialLink } from "@/models/SocialLink";
 import SocialLinksManager from "@/components/admin/SocialLinksManager";
 
-export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 export default async function AdminSocialLinksPage() {
   await connectToDatabase();

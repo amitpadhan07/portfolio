@@ -3,7 +3,7 @@ import { connectToDatabase } from "@/lib/db";
 import { Achievement } from "@/models/Achievement";
 import AchievementsManager from "@/components/admin/AchievementsManager";
 
-export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 export default async function AdminAchievementsPage() {
   await connectToDatabase();

@@ -3,7 +3,7 @@ import { connectToDatabase } from "@/lib/db";
 import { Profile } from "@/models/Profile";
 import ProfileForm from "@/components/admin/ProfileForm";
 
-export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 export default async function AdminProfilePage() {
   await connectToDatabase();

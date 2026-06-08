@@ -3,7 +3,7 @@ import { connectToDatabase } from "@/lib/db";
 import { Settings } from "@/models/Settings";
 import SettingsForm from "@/components/admin/SettingsForm";
 
-export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 export default async function AdminSettingsPage() {
   await connectToDatabase();

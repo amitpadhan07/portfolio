@@ -2,6 +2,7 @@
 
 import { ArrowUp } from "lucide-react";
 import * as LucideIcons from "lucide-react";
+import { usePathname } from "next/navigation";
 
 interface SocialLinkItem {
   platform: string;
@@ -14,6 +15,13 @@ interface FooterProps {
 }
 
 export default function Footer({ socialLinks = [] }: FooterProps) {
+  const pathname = usePathname();
+
+  // Hide public footer in the administrative portal
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };

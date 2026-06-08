@@ -3,7 +3,7 @@ import { connectToDatabase } from "@/lib/db";
 import { Certification } from "@/models/Certification";
 import CertificationsManager from "@/components/admin/CertificationsManager";
 
-export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 export default async function AdminCertificationsPage() {
   await connectToDatabase();

@@ -3,7 +3,7 @@ import { connectToDatabase } from "@/lib/db";
 import { Resume } from "@/models/Resume";
 import ResumeManager from "@/components/admin/ResumeManager";
 
-export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 export default async function AdminResumePage() {
   await connectToDatabase();
