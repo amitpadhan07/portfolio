@@ -2,14 +2,6 @@ import fs from "fs";
 import path from "path";
 import bcrypt from "bcryptjs";
 import mongoose from "mongoose";
-import dns from "dns";
-
-// Override system DNS servers to resolve MongoDB Atlas SRV records reliably
-try {
-  dns.setServers(["8.8.8.8", "8.8.4.4", "1.1.1.1"]);
-} catch (err) {
-  console.warn("Unable to set custom DNS servers, relying on system defaults:", err);
-}
 
 // Manual env loader for .env.local
 const envPath = path.resolve(process.cwd(), ".env.local");

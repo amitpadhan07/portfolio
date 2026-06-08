@@ -1,7 +1,15 @@
 import { z } from "zod";
 
 const envSchema = z.object({
-  MONGODB_URI: z.string().min(1, "MONGODB_URI is required for database connectivity"),
+  MONGODB_URI: z
+    .string()
+    .min(1, "MONGODB_URI is required for database connectivity")
+    .refine(
+      (val) => val.startsWith("mongodb+srv://") || val.startsWith("mongodb://"),
+      {
+        message: "MONGODB_URI must be a valid MongoDB connection string starting with 'mongodb+srv://' or 'mongodb://'",
+      }
+    ),
   NEXTAUTH_SECRET: z.string().min(1, "NEXTAUTH_SECRET is required for security and session hashing"),
   NEXTAUTH_URL: z.string().url("NEXTAUTH_URL must be a valid URL pointing to the app's root path"),
   CLOUDINARY_CLOUD_NAME: z.string().min(1, "CLOUDINARY_CLOUD_NAME is required for media hosting"),
