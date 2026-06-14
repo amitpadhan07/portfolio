@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 export default function CustomCursor() {
+  const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   
@@ -16,9 +18,15 @@ export default function CustomCursor() {
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   useEffect(() => {
-    // Only enable custom cursor on desktop screens (>= 1024px)
+    // Only enable custom cursor on desktop screens (>= 1024px) and non-admin routes
     const isDesktop = window.innerWidth >= 1024;
-    if (!isDesktop) return;
+    const isAdmin = pathname?.startsWith("/admin");
+
+    if (!isDesktop || isAdmin) {
+      setIsVisible(false);
+      document.body.classList.remove("custom-cursor-active");
+      return;
+    }
 
     setIsVisible(true);
     document.body.classList.add("custom-cursor-active");
@@ -53,7 +61,7 @@ export default function CustomCursor() {
       window.removeEventListener("mouseover", handleMouseOver);
       document.body.classList.remove("custom-cursor-active");
     };
-  }, [cursorX, cursorY]);
+  }, [cursorX, cursorY, pathname]);
 
   if (!isVisible) return null;
 
