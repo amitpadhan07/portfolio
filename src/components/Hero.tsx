@@ -194,8 +194,8 @@ export default function Hero({ profile, resume }: HeroProps) {
   const displayAvatar = profile?.profilePicture || "/Amit.jpg";
   const displayBgAvatar = profile?.heroImage || null;
 
-  // Use resume URL if available, otherwise default to legacy static print file
-  const resumeUrl = resume?.pdfUrl || "/Amit_Padhan_Resume.html";
+  // Always open the resume HTML file and pass the PDF URL via query parameter for download
+  const resumeUrl = `/Amit_Padhan_Resume.html${resume?.pdfUrl ? `?pdfUrl=${encodeURIComponent(resume.pdfUrl)}` : ""}`;
 
   return (
     <section

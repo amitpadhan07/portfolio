@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface LoadingScreenProps {
@@ -21,7 +21,17 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   const [textIndex, setTextIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
 
+  // Stable ref to avoid cancelling the exit timer on parent re-renders
+  const onCompleteRef = useRef(onComplete);
   useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
+
+  useEffect(() => {
+    const isDev = process.env.NODE_ENV === "development";
+    const progressSpeed = isDev ? 15 : 150;
+    const textSpeed = isDev ? 40 : 400;
+
     // Increment loading progress
     const progressTimer = setInterval(() => {
       setProgress((prev) => {
@@ -31,12 +41,12 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
         }
         return prev + Math.floor(Math.random() * 15) + 5;
       });
-    }, 150);
+    }, progressSpeed);
 
     // Switch status text
     const textTimer = setInterval(() => {
       setTextIndex((prev) => (prev < loadingTexts.length - 1 ? prev + 1 : prev));
-    }, 400);
+    }, textSpeed);
 
     return () => {
       clearInterval(progressTimer);
@@ -48,11 +58,15 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
     if (progress >= 100) {
       const exitTimer = setTimeout(() => {
         setIsVisible(false);
-        setTimeout(onComplete, 500); // Trigger complete after fade out
+        setTimeout(() => {
+          if (onCompleteRef.current) {
+            onCompleteRef.current();
+          }
+        }, 500); // Trigger complete after fade out
       }, 300);
       return () => clearTimeout(exitTimer);
     }
-  }, [progress, onComplete]);
+  }, [progress]);
 
   return (
     <AnimatePresence>
@@ -61,7 +75,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="fixed inset-0 bg-[#070b13] flex flex-col items-center justify-center z-50 pointer-events-auto"
+          className="fixed inset-0 bg-[#070b13] flex flex-col items-center justify-center z-[9999] pointer-events-auto"
         >
           {/* Glowing particle background */}
           <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none" />

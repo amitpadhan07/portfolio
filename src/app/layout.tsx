@@ -117,7 +117,7 @@ export default async function RootLayout({
         <AnalyticsTracker />
         <Navbar />
         {/* Main Content Area */}
-        <main className="flex-grow z-10">
+        <main className="flex-grow">
           {children}
         </main>
         <Footer socialLinks={socialLinks} />
