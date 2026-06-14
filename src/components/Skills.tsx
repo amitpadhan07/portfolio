@@ -2,7 +2,31 @@
 
 import { motion, Variants } from "framer-motion";
 import SpotlightCard from "@/components/ui/SpotlightCard";
-import { Monitor, Server, Terminal, BrainCircuit, Star, Database, Cloud } from "lucide-react";
+import { 
+  Monitor, 
+  Server, 
+  Terminal, 
+  BrainCircuit, 
+  Star, 
+  Database, 
+  Cloud,
+  Code,
+  Atom,
+  Blocks,
+  Layout,
+  Sparkles,
+  GitBranch,
+  Braces,
+  Binary,
+  MessageSquare,
+  Wand2,
+  Cpu,
+  Layers,
+  Network,
+  Globe,
+  Settings,
+  Workflow
+} from "lucide-react";
 
 interface SkillItem {
   name: string;
@@ -122,6 +146,58 @@ const defaultCategories: SkillCategory[] = [
   },
 ];
 
+const iconMap: Record<string, React.ComponentType<any>> = {
+  monitor: Monitor,
+  server: Server,
+  terminal: Terminal,
+  braincircuit: BrainCircuit,
+  star: Star,
+  database: Database,
+  cloud: Cloud,
+  code: Code,
+  atom: Atom,
+  blocks: Blocks,
+  layout: Layout,
+  sparkles: Sparkles,
+  gitbranch: GitBranch,
+  braces: Braces,
+  binary: Binary,
+  messagesquare: MessageSquare,
+  wand2: Wand2,
+  cpu: Cpu,
+  layers: Layers,
+  network: Network,
+  globe: Globe,
+  settings: Settings,
+  workflow: Workflow
+};
+
+function getSkillIcon(skillName: string, iconName?: string) {
+  const normalizedIcon = (iconName || "").trim().toLowerCase();
+  if (normalizedIcon && iconMap[normalizedIcon]) {
+    return iconMap[normalizedIcon];
+  }
+
+  // Fallback to name-based lookup
+  const name = skillName.toLowerCase();
+  if (name.includes("react")) return Atom;
+  if (name.includes("next")) return Blocks;
+  if (name.includes("html") || name.includes("css")) return Layout;
+  if (name.includes("tailwind")) return Sparkles;
+  if (name.includes("node")) return Server;
+  if (name.includes("express")) return GitBranch;
+  if (name.includes("mongo") || name.includes("sql") || name.includes("db") || name.includes("postgres")) return Database;
+  if (name.includes("javascript") || name.includes("typescript") || name.includes("js") || name.includes("ts")) return Braces;
+  if (name.includes("python")) return Binary;
+  if (name.includes("java") || name.includes("c++") || name.includes("c#")) return Terminal;
+  if (name.includes("machine learning") || name.includes("ml")) return BrainCircuit;
+  if (name.includes("nlp") || name.includes("natural language")) return MessageSquare;
+  if (name.includes("generative") || name.includes("genai") || name.includes("prompt")) return Wand2;
+  if (name.includes("cloud") || name.includes("aws") || name.includes("devops")) return Cloud;
+
+  return Code; // default fallback
+}
+
 export default function Skills({ skills = [] }: SkillsProps) {
   // Dynamically group skills by category if list is not empty
   let categories: SkillCategory[] = [];
@@ -227,18 +303,26 @@ export default function Skills({ skills = [] }: SkillsProps) {
 
                   {/* Skills tags and descriptions */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {category.skills.map((skill) => (
-                      <div
-                        key={skill.name}
-                        className="flex flex-col gap-1 p-3 rounded-lg bg-white/[0.02] border border-white/5 hover:border-white/10 hover:bg-white/[0.04] transition-all"
-                      >
-                        <span className="text-sm font-semibold text-text-primary">{skill.name}</span>
-                        <div className="flex items-center gap-1 text-[10px] text-text-muted font-mono uppercase">
-                          <Star className="w-2.5 h-2.5 fill-primary text-primary" />
-                          <span>{skill.level}</span>
+                    {category.skills.map((skill) => {
+                      const IconComponent = getSkillIcon(skill.name, skill.icon);
+                      return (
+                        <div
+                          key={skill.name}
+                          className="flex items-center gap-3 p-3 rounded-lg bg-white/[0.02] border border-white/5 hover:border-white/10 hover:bg-white/[0.04] transition-all"
+                        >
+                          <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-primary/80 transition-colors group-hover:text-primary">
+                            <IconComponent className="w-5 h-5" />
+                          </div>
+                          <div className="flex flex-col gap-0.5">
+                            <span className="text-sm font-semibold text-text-primary">{skill.name}</span>
+                            <div className="flex items-center gap-1 text-[10px] text-text-muted font-mono uppercase">
+                              <Star className="w-2.5 h-2.5 fill-primary text-primary" />
+                              <span>{skill.level}</span>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               </SpotlightCard>
