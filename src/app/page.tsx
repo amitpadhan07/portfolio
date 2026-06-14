@@ -94,6 +94,9 @@ export default async function Page() {
       date: c.date,
       certificateUrl: c.certificateUrl || "",
       image: c.image || "",
+      fileType: c.fileType || "image",
+      fileUrl: c.fileUrl || c.image || "",
+      issuerLogo: c.issuerLogo || "",
     }));
 
     // 6. Fetch Achievements

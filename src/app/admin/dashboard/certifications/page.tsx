@@ -17,6 +17,9 @@ export default async function AdminCertificationsPage() {
     date: c.date,
     certificateUrl: c.certificateUrl || "",
     image: c.image || "",
+    fileType: c.fileType || "image",
+    fileUrl: c.fileUrl || c.image || "",
+    issuerLogo: c.issuerLogo || "",
   }));
 
   return <CertificationsManager initialCertifications={plainCerts} />;

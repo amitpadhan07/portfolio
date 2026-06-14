@@ -50,16 +50,24 @@ export async function deleteFromCloudinary(fileUrl: string): Promise<boolean> {
   if (!fileUrl) return false;
 
   try {
-    // Extract public ID from the Cloudinary URL
-    // Format: https://res.cloudinary.com/cloud_name/image/upload/v123456789/folder/public_id.jpg
-    const regex = /\/v\d+\/([^/]+(?:\/[^/]+)*)\.[a-z0-9]+$/i;
+    // Extract resource type and public ID from the Cloudinary URL
+    // Format: https://res.cloudinary.com/cloud_name/<resource_type>/upload/v123456789/folder/public_id.jpg
+    const regex = /\/([a-z]+)\/upload\/v\d+\/([^/]+(?:\/[^/]+)*)\.[a-z0-9]+$/i;
     const match = fileUrl.match(regex);
 
-    if (!match) return false;
+    if (!match) {
+      // Fallback to simpler regex if format is slightly different
+      const fallbackRegex = /\/v\d+\/([^/]+(?:\/[^/]+)*)\.[a-z0-9]+$/i;
+      const fallbackMatch = fileUrl.match(fallbackRegex);
+      if (!fallbackMatch) return false;
+      const result = await cloudinary.uploader.destroy(fallbackMatch[1]);
+      return result.result === "ok";
+    }
 
-    const publicId = match[1];
+    const resourceType = match[1];
+    const publicId = match[2];
 
-    const result = await cloudinary.uploader.destroy(publicId);
+    const result = await cloudinary.uploader.destroy(publicId, { resource_type: resourceType });
     return result.result === "ok";
   } catch (error) {
     console.error("Cloudinary asset deletion failed:", error);

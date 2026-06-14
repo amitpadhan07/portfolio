@@ -38,7 +38,7 @@ export default function Footer({ socialLinks = [] }: FooterProps) {
             <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-primary to-secondary flex items-center justify-center font-bold font-mono text-xs text-text-primary shadow-lg shadow-primary/5">
               AP
             </div>
-            <span className="text-sm font-semibold tracking-wider text-text-primary uppercase font-mono">
+            <span className="text-sm font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary uppercase font-mono">
               Amit.Dev
             </span>
           </div>

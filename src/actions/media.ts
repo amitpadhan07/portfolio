@@ -16,6 +16,28 @@ export async function uploadImageAction(formData: FormData) {
       return { success: false, error: "No file provided" };
     }
 
+    // Security: Validate file size (max 10MB)
+    const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
+    if (file.size > MAX_FILE_SIZE) {
+      return { success: false, error: "File is too large. Maximum size is 10MB." };
+    }
+
+    // Security: Validate file MIME type
+    const ALLOWED_MIME_TYPES = [
+      "image/jpeg",
+      "image/jpg",
+      "image/png",
+      "image/webp",
+      "image/svg+xml",
+      "application/pdf",
+    ];
+    if (!ALLOWED_MIME_TYPES.includes(file.type)) {
+      return {
+        success: false,
+        error: "Invalid file type. Supported types: JPG, JPEG, PNG, WEBP, SVG, PDF",
+      };
+    }
+
     const folder = (formData.get("folder") as string) || "portfolio_cms";
 
     // Convert File to Buffer

@@ -27,6 +27,85 @@ interface ContactProps {
   socialLinks?: SocialLinkItem[];
 }
 
+const getBrandStyle = (name: string) => {
+  const lower = name.toLowerCase();
+  if (lower.includes("email") || lower.includes("mail")) {
+    return {
+      iconColor: "text-[#EA4335]",
+      bgBorder: "bg-[#EA4335]/5 border-[#EA4335]/10 group-hover/item:border-[#EA4335]/40 group-hover/item:bg-[#EA4335]/15",
+      textHover: "group-hover/item:text-[#EA4335]",
+    };
+  }
+  if (lower.includes("phone") || lower.includes("tel")) {
+    return {
+      iconColor: "text-[#25D366]",
+      bgBorder: "bg-[#25D366]/5 border-[#25D366]/10 group-hover/item:border-[#25D366]/40 group-hover/item:bg-[#25D366]/15",
+      textHover: "group-hover/item:text-[#25D366]",
+    };
+  }
+  if (lower.includes("location") || lower.includes("address") || lower.includes("map")) {
+    return {
+      iconColor: "text-[#EF4444]",
+      bgBorder: "bg-[#EF4444]/5 border-[#EF4444]/10 group-hover/item:border-[#EF4444]/40 group-hover/item:bg-[#EF4444]/15",
+      textHover: "group-hover/item:text-[#EF4444]",
+    };
+  }
+  if (lower.includes("linkedin")) {
+    return {
+      iconColor: "text-[#0A66C2]",
+      bgBorder: "bg-[#0A66C2]/5 border-[#0A66C2]/10 group-hover/item:border-[#0A66C2]/40 group-hover/item:bg-[#0A66C2]/15",
+      textHover: "group-hover/item:text-[#0A66C2]",
+    };
+  }
+  if (lower.includes("github")) {
+    return {
+      iconColor: "text-[#F8FAFC]",
+      bgBorder: "bg-white/5 border-white/10 group-hover/item:border-white/30 group-hover/item:bg-white/15",
+      textHover: "group-hover/item:text-white",
+    };
+  }
+  if (lower.includes("telegram")) {
+    return {
+      iconColor: "text-[#26A5E4]",
+      bgBorder: "bg-[#26A5E4]/5 border-[#26A5E4]/10 group-hover/item:border-[#26A5E4]/40 group-hover/item:bg-[#26A5E4]/15",
+      textHover: "group-hover/item:text-[#26A5E4]",
+    };
+  }
+  if (lower.includes("instagram")) {
+    return {
+      iconColor: "text-[#E1306C]",
+      bgBorder: "bg-[#E1306C]/5 border-[#E1306C]/10 group-hover/item:border-[#E1306C]/40 group-hover/item:bg-[#E1306C]/15",
+      textHover: "group-hover/item:text-[#E1306C]",
+    };
+  }
+  if (lower.includes("twitter") || lower.includes("x.com")) {
+    return {
+      iconColor: "text-[#1DA1F2]",
+      bgBorder: "bg-[#1DA1F2]/5 border-[#1DA1F2]/10 group-hover/item:border-[#1DA1F2]/40 group-hover/item:bg-[#1DA1F2]/15",
+      textHover: "group-hover/item:text-[#1DA1F2]",
+    };
+  }
+  if (lower.includes("facebook")) {
+    return {
+      iconColor: "text-[#1877F2]",
+      bgBorder: "bg-[#1877F2]/5 border-[#1877F2]/10 group-hover/item:border-[#1877F2]/40 group-hover/item:bg-[#1877F2]/15",
+      textHover: "group-hover/item:text-[#1877F2]",
+    };
+  }
+  if (lower.includes("youtube")) {
+    return {
+      iconColor: "text-[#FF0000]",
+      bgBorder: "bg-[#FF0000]/5 border-[#FF0000]/10 group-hover/item:border-[#FF0000]/40 group-hover/item:bg-[#FF0000]/15",
+      textHover: "group-hover/item:text-[#FF0000]",
+    };
+  }
+  return {
+    iconColor: "text-text-secondary",
+    bgBorder: "bg-white/5 border border-white/10 group-hover/item:border-primary/50 group-hover/item:bg-white/10",
+    textHover: "group-hover/item:text-primary",
+  };
+};
+
 export default function Contact({ contactInfo, socialLinks = [] }: ContactProps) {
   const [formData, setFormData] = useState({
     name: "",
@@ -129,57 +208,69 @@ export default function Contact({ contactInfo, socialLinks = [] }: ContactProps)
 
                 <div className="space-y-5">
                   {/* Email */}
-                  <a
-                    href={`mailto:${displayEmail}`}
-                    className="flex items-center gap-4 group/item cursor-pointer"
-                  >
-                    <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-text-secondary group-hover/item:text-primary group-hover/item:border-primary/50 transition-all">
-                      <Mail className="w-5 h-5" />
-                    </div>
-                    <div className="flex flex-col min-w-0">
-                      <span className="text-[10px] font-mono uppercase text-text-muted">Email</span>
-                      <span className="text-sm text-text-primary group-hover/item:text-primary transition-colors truncate">
-                        {displayEmail}
-                      </span>
-                    </div>
-                  </a>
+                  {(() => {
+                    const style = getBrandStyle("email");
+                    return (
+                      <a
+                        href={`mailto:${displayEmail}`}
+                        className="flex items-center gap-4 group/item cursor-pointer"
+                      >
+                        <div className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all ${style.bgBorder} ${style.iconColor}`}>
+                          <Mail className="w-5 h-5" />
+                        </div>
+                        <div className="flex flex-col min-w-0">
+                          <span className="text-[10px] font-mono uppercase text-text-muted">Email</span>
+                          <span className={`text-sm text-text-primary transition-colors truncate ${style.textHover}`}>
+                            {displayEmail}
+                          </span>
+                        </div>
+                      </a>
+                    );
+                  })()}
 
                   {/* Phone */}
-                  {displayPhone && (
-                    <a
-                      href={`tel:${displayPhone.replace(/\s+/g, "")}`}
-                      className="flex items-center gap-4 group/item cursor-pointer"
-                    >
-                      <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-text-secondary group-hover/item:text-primary group-hover/item:border-primary/50 transition-all">
-                        <Phone className="w-5 h-5" />
-                      </div>
-                      <div className="flex flex-col min-w-0">
-                        <span className="text-[10px] font-mono uppercase text-text-muted">Phone Number</span>
-                        <span className="text-sm text-text-primary group-hover/item:text-primary transition-colors truncate">
-                          {displayPhone}
-                        </span>
-                      </div>
-                    </a>
-                  )}
+                  {displayPhone && (() => {
+                    const style = getBrandStyle("phone");
+                    return (
+                      <a
+                        href={`tel:${displayPhone.replace(/\s+/g, "")}`}
+                        className="flex items-center gap-4 group/item cursor-pointer"
+                      >
+                        <div className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all ${style.bgBorder} ${style.iconColor}`}>
+                          <Phone className="w-5 h-5" />
+                        </div>
+                        <div className="flex flex-col min-w-0">
+                          <span className="text-[10px] font-mono uppercase text-text-muted">Phone Number</span>
+                          <span className={`text-sm text-text-primary transition-colors truncate ${style.textHover}`}>
+                            {displayPhone}
+                          </span>
+                        </div>
+                      </a>
+                    );
+                  })()}
 
                   {/* Location */}
-                  {displayLocation && (
-                    <div className="flex items-center gap-4 group/item">
-                      <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-text-secondary">
-                        <MapPin className="w-5 h-5" />
+                  {displayLocation && (() => {
+                    const style = getBrandStyle("location");
+                    return (
+                      <div className="flex items-center gap-4 group/item">
+                        <div className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all ${style.bgBorder} ${style.iconColor}`}>
+                          <MapPin className="w-5 h-5" />
+                        </div>
+                        <div className="flex flex-col min-w-0">
+                          <span className="text-[10px] font-mono uppercase text-text-muted">Location</span>
+                          <span className="text-sm text-text-primary">
+                            {displayLocation}
+                          </span>
+                        </div>
                       </div>
-                      <div className="flex flex-col min-w-0">
-                        <span className="text-[10px] font-mono uppercase text-text-muted">Location</span>
-                        <span className="text-sm text-text-primary">
-                          {displayLocation}
-                        </span>
-                      </div>
-                    </div>
-                  )}
+                    );
+                  })()}
 
                   {/* Social links (GitHub, LinkedIn, Telegram etc loaded from active profiles) */}
                   {socialLinks.map((link, idx) => {
                     const IconComp = getSocialIcon(link.icon);
+                    const style = getBrandStyle(link.platform);
                     return (
                       <a
                         key={idx}
@@ -188,12 +279,12 @@ export default function Contact({ contactInfo, socialLinks = [] }: ContactProps)
                         rel="noopener noreferrer"
                         className="flex items-center gap-4 group/item cursor-pointer"
                       >
-                        <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-text-secondary group-hover/item:text-primary group-hover/item:border-primary/50 transition-all">
+                        <div className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all ${style.bgBorder}`}>
                           <IconComp className="w-5 h-5" />
                         </div>
                         <div className="flex flex-col min-w-0">
                           <span className="text-[10px] font-mono uppercase text-text-muted">{link.platform}</span>
-                          <span className="text-sm text-text-primary group-hover/item:text-primary transition-colors truncate font-mono">
+                          <span className={`text-sm text-text-primary transition-colors truncate font-mono ${style.textHover}`}>
                             {link.url.replace(/^https?:\/\/(www\.)?/, "")}
                           </span>
                         </div>

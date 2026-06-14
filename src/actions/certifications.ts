@@ -21,9 +21,21 @@ export async function createCertification(data: any) {
       return { success: false, error: parsed.error.issues[0].message };
     }
 
+    // Normalization and backward compatibility mapping
+    const certData = { ...parsed.data };
+    if (!certData.fileUrl && certData.image) {
+      certData.fileUrl = certData.image;
+    }
+    if (!certData.image && certData.fileUrl) {
+      certData.image = certData.fileUrl;
+    }
+    if (certData.fileUrl && certData.fileUrl.toLowerCase().endsWith(".pdf")) {
+      certData.fileType = "pdf";
+    }
+
     await connectToDatabase();
 
-    const newCert = await Certification.create(parsed.data);
+    const newCert = await Certification.create(certData);
 
     await ActivityLog.create({
       action: `Created certification record: "${newCert.name}" from "${newCert.issuer}"`,
@@ -53,6 +65,18 @@ export async function updateCertification(id: string, data: any) {
       return { success: false, error: parsed.error.issues[0].message };
     }
 
+    // Normalization and backward compatibility mapping
+    const certData = { ...parsed.data };
+    if (!certData.fileUrl && certData.image) {
+      certData.fileUrl = certData.image;
+    }
+    if (!certData.image && certData.fileUrl) {
+      certData.image = certData.fileUrl;
+    }
+    if (certData.fileUrl && certData.fileUrl.toLowerCase().endsWith(".pdf")) {
+      certData.fileType = "pdf";
+    }
+
     await connectToDatabase();
 
     const existingCert = await Certification.findById(id);
@@ -60,14 +84,23 @@ export async function updateCertification(id: string, data: any) {
       return { success: false, error: "Certification not found" };
     }
 
-    // If new image is set, delete old image from Cloudinary
-    if (parsed.data.image && existingCert.image && parsed.data.image !== existingCert.image) {
-      await deleteFromCloudinary(existingCert.image);
+    // Cloudinary Cleanup: If fileUrl (or image) is updated, delete the old one from Cloudinary
+    const oldFileUrl = existingCert.fileUrl || existingCert.image;
+    const newFileUrl = certData.fileUrl || certData.image;
+    if (newFileUrl && oldFileUrl && newFileUrl !== oldFileUrl) {
+      await deleteFromCloudinary(oldFileUrl);
+    }
+
+    // Cloudinary Cleanup: If issuerLogo is updated or removed, delete the old one from Cloudinary
+    const oldLogo = existingCert.issuerLogo;
+    const newLogo = certData.issuerLogo;
+    if (oldLogo && newLogo !== oldLogo) {
+      await deleteFromCloudinary(oldLogo);
     }
 
     const updatedCert = await Certification.findByIdAndUpdate(
       id,
-      { $set: parsed.data },
+      { $set: certData },
       { new: true }
     );
 
@@ -101,9 +134,15 @@ export async function deleteCertification(id: string) {
       return { success: false, error: "Certification not found" };
     }
 
-    // Delete image from Cloudinary
-    if (existingCert.image) {
-      await deleteFromCloudinary(existingCert.image);
+    // Delete main certificate file/image from Cloudinary
+    const fileUrl = existingCert.fileUrl || existingCert.image;
+    if (fileUrl) {
+      await deleteFromCloudinary(fileUrl);
+    }
+
+    // Delete issuer logo from Cloudinary if it exists
+    if (existingCert.issuerLogo) {
+      await deleteFromCloudinary(existingCert.issuerLogo);
     }
 
     await Certification.findByIdAndDelete(id);

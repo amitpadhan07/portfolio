@@ -53,47 +53,109 @@ const createBrandIcon = (children: React.ReactNode) => {
 };
 
 // Custom SVG components using React.createElement to keep it in a pure .ts file
-export const Github = createBrandIcon(
-  React.createElement(
-    React.Fragment,
-    null,
-    React.createElement("path", {
-      d: "M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4",
-    }),
-    React.createElement("path", { d: "M9 18c-4.51 2-5-2-7-2" })
+export const Github = React.forwardRef<SVGSVGElement, BrandIconProps>(
+  ({ size = 24, className = "", ...props }, ref) => (
+    React.createElement(
+      "svg",
+      {
+        ref,
+        xmlns: "http://www.w3.org/2000/svg",
+        width: size,
+        height: size,
+        viewBox: "0 0 24 24",
+        fill: "#F8FAFC",
+        className,
+        ...props,
+      },
+      React.createElement("path", {
+        d: "M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+      })
+    )
   )
 );
+Github.displayName = "Github";
 
-export const Linkedin = createBrandIcon(
-  React.createElement(
-    React.Fragment,
-    null,
-    React.createElement("path", {
-      d: "M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z",
-    }),
-    React.createElement("rect", { width: "4", height: "12", x: "2", y: "9" }),
-    React.createElement("circle", { cx: "4", cy: "4", r: "2" })
+export const Linkedin = React.forwardRef<SVGSVGElement, BrandIconProps>(
+  ({ size = 24, className = "", ...props }, ref) => (
+    React.createElement(
+      "svg",
+      {
+        ref,
+        xmlns: "http://www.w3.org/2000/svg",
+        width: size,
+        height: size,
+        viewBox: "0 0 24 24",
+        className,
+        ...props,
+      },
+      React.createElement("rect", { width: "24", height: "24", rx: "4", fill: "#0A66C2" }),
+      React.createElement("path", {
+        fill: "#FFFFFF",
+        d: "M6.5 20h-3V9h3v11zM4.75 7.65c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zM20.5 20h-3v-5.604c0-3.368-4-3.113-4 0V20h-3V9h3v1.765c1.396-2.586 7-2.777 7 2.476V20z"
+      })
+    )
   )
 );
+Linkedin.displayName = "Linkedin";
 
-export const Instagram = createBrandIcon(
-  React.createElement(
-    React.Fragment,
-    null,
-    React.createElement("rect", {
-      width: "20",
-      height: "20",
-      x: "2",
-      y: "2",
-      rx: "5",
-      ry: "5",
-    }),
-    React.createElement("path", {
-      d: "M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z",
-    }),
-    React.createElement("line", { x1: "17.5", x2: "17.51", y1: "6.5", y2: "6.5" })
+export const Telegram = React.forwardRef<SVGSVGElement, BrandIconProps>(
+  ({ size = 24, className = "", ...props }, ref) => (
+    React.createElement(
+      "svg",
+      {
+        ref,
+        xmlns: "http://www.w3.org/2000/svg",
+        width: size,
+        height: size,
+        viewBox: "0 0 24 24",
+        className,
+        ...props,
+      },
+      React.createElement("circle", { cx: "12", cy: "12", r: "12", fill: "#229ED9" }),
+      React.createElement("path", {
+        fill: "#FFFFFF",
+        d: "M17.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.869 4.325-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.46c.536-.196 1.006.128.832.93z"
+      })
+    )
   )
 );
+Telegram.displayName = "Telegram";
+
+export const Instagram = React.forwardRef<SVGSVGElement, BrandIconProps>(
+  ({ size = 24, className = "", ...props }, ref) => (
+    React.createElement(
+      "svg",
+      {
+        ref,
+        xmlns: "http://www.w3.org/2000/svg",
+        width: size,
+        height: size,
+        viewBox: "0 0 24 24",
+        className,
+        ...props,
+      },
+      React.createElement(
+        "defs",
+        null,
+        React.createElement(
+          "radialGradient",
+          { id: "instagram-gradient-icon", cx: "30%", cy: "107%", r: "130%" },
+          React.createElement("stop", { offset: "0%", stopColor: "#fdf497" }),
+          React.createElement("stop", { offset: "5%", stopColor: "#fdf497" }),
+          React.createElement("stop", { offset: "45%", stopColor: "#fd5949" }),
+          React.createElement("stop", { offset: "60%", stopColor: "#d6249f" }),
+          React.createElement("stop", { offset: "90%", stopColor: "#285AEB" })
+        )
+      ),
+      React.createElement("rect", { width: "24", height: "24", rx: "5", fill: "url(#instagram-gradient-icon)" }),
+      React.createElement("path", {
+        fill: "#FFFFFF",
+        d: "M12 5.838c2.007 0 2.244.008 3.037.044.734.034 1.132.157 1.397.26.35.136.6.3.863.563.262.263.427.513.563.863.103.265.226.663.26 1.397.036.793.044 1.03.044 3.037s-.008 2.244-.044 3.037c-.034.734-.157 1.132-.26 1.397-.136.35-.3.6-.563.863-.263.262-.513.427-.863.563-.265.103-.663.226-1.397.26-.793.036-1.03.044-3.037.044s-2.244-.008-3.037-.044c-.734-.034-1.132-.157-1.397-.26-.35-.136-.6-.3-.863-.563-.262-.263-.427-.513-.563-.863-.103-.265-.226-.663-.26-1.397-.036-.793-.044-1.03-.044-3.037s.008-2.244.044-3.037c.034-.734.157-1.132.26-1.397.136-.35.3-.6.563-.863.263-.262.513-.427.863-.563.265-.103.663-.226 1.397-.26.793-.036 1.03-.044 3.037-.044zm0-1.838c-2.04 0-2.296.009-3.097.045-1.118.051-1.88.229-2.548.489-.69.268-1.275.626-1.858 1.21-.584.582-.943 1.167-1.21 1.857-.26.669-.438 1.43-.489 2.548-.036.801-.045 1.057-.045 3.097s.009 2.296.045 3.097c.051 1.118.229 1.88.489 2.548.268.69.626 1.275 1.21 1.858.582.584 1.167.943 1.857 1.21.669.26 1.43.438 2.548.489.801.036 1.057.045 3.097.045s2.296-.009 3.097-.045c1.118-.051 1.88-.229 2.548-.489.69-.268 1.275-.626 1.858-1.21.584-.582.943-1.167 1.21-1.857.26-.669.438-1.43.489-2.548.036-.801.045-1.057.045-3.097s-.009-2.296-.045-3.097c-.051-1.118-.229-1.88-.489-2.548-.268-.69-.626-1.275-1.21-1.858-.582-.584-1.167-.943-1.857-1.21-.669-.26-1.43-.438-2.548-.489-.801-.036-1.057-.045-3.097-.045zm0 5.838c-2.298 0-4.162 1.864-4.162 4.162s1.864 4.162 4.162 4.162 4.162-1.864 4.162-4.162-1.864-4.162-4.162-4.162zm0 6.486c-1.284 0-2.324-1.04-2.324-2.324 0-1.284 1.04-2.324 2.324-2.324 1.284 0 2.324 1.04 2.324 2.324 0 1.284-1.04 2.324-2.324 2.324zm5.845-6.945c0 .463-.376.838-.838.838-.463 0-.838-.375-.838-.838 0-.462.375-.838.838-.838.462 0 .838.376.838.838z"
+      })
+    )
+  )
+);
+Instagram.displayName = "Instagram";
 
 export const Twitter = createBrandIcon(
   React.createElement("path", {
@@ -123,8 +185,8 @@ const socialIconMap: Record<string, React.ComponentType<any>> = {
   github: Github,
   linkedin: Linkedin,
   instagram: Instagram,
-  telegram: Send,
-  send: Send,
+  telegram: Telegram,
+  send: Telegram,
   twitter: Twitter,
   youtube: Youtube,
   facebook: Facebook,

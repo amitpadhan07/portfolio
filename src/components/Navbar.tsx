@@ -77,7 +77,7 @@ export default function Navbar() {
           <div className="w-9 h-9 rounded-lg bg-gradient-to-tr from-primary to-secondary flex items-center justify-center font-bold font-mono text-sm text-text-primary shadow-lg shadow-primary/10 transition-transform group-hover:scale-105">
             AP
           </div>
-          <span className="text-sm font-semibold tracking-wider text-text-primary uppercase group-hover:text-primary transition-colors font-mono">
+          <span className="text-sm font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary uppercase font-mono transition-opacity group-hover:opacity-85">
             Amit.Dev
           </span>
         </a>

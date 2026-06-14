@@ -83,6 +83,9 @@ export const CertificationSchema = z.object({
   date: z.string().min(1, "Date is required"),
   certificateUrl: z.string().url("Invalid URL").or(z.literal("")).optional(),
   image: z.string().optional().default(""),
+  fileUrl: z.string().url("Invalid file URL").or(z.literal("")).optional().default(""),
+  fileType: z.enum(["image", "pdf"]).optional().default("image"),
+  issuerLogo: z.string().url("Invalid logo URL").or(z.literal("")).optional().default(""),
 });
 
 // Achievement Schema
