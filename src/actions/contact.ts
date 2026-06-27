@@ -9,6 +9,9 @@ import { Analytics } from "@/models/Analytics";
 import { ActivityLog } from "@/models/ActivityLog";
 import { ContactInfoSchema, MessageSchema } from "@/validators/schemas";
 import { revalidatePath } from "next/cache";
+import { sendTransactionalMail } from "@/lib/brevo";
+import { buildNotificationEmailHtml, buildNotificationEmailPlainText } from "@/lib/email-template";
+
 
 export async function updateContactInfo(data: any) {
   try {
@@ -70,6 +73,40 @@ export async function submitContactMessage(data: any) {
       { $inc: { formSubmissions: 1 } },
       { upsert: true }
     );
+
+    // 3. Send email notification to site owner/admin
+    try {
+      const contact = await ContactInfo.findOne().lean();
+      const adminEmail = contact?.email || process.env.MAIL_FROM_EMAIL || "padhanamit072006@gmail.com";
+      const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+      const dashboardUrl = `${baseUrl}/admin/dashboard/messages`;
+
+      const notificationData = {
+        senderName: newMessage.name,
+        senderEmail: newMessage.email,
+        subject: newMessage.subject,
+        message: newMessage.message,
+        date: new Date((newMessage as any).createdAt || Date.now()).toLocaleString("en-US", {
+          dateStyle: "medium",
+          timeStyle: "short",
+        }),
+        dashboardUrl,
+      };
+
+      const htmlContent = buildNotificationEmailHtml(notificationData);
+      const textContent = buildNotificationEmailPlainText(notificationData);
+
+      await sendTransactionalMail({
+        to: [{ email: adminEmail, name: "Amit Padhan" }],
+        subject: `New Message: ${newMessage.subject}`,
+        htmlContent,
+        textContent,
+        tags: ["portfolio-cms", "contact-notification"],
+      });
+      console.log(`[Notification] Email sent to ${adminEmail} successfully.`);
+    } catch (emailError: any) {
+      console.error("[Notification] Failed to send contact email notification:", emailError.message);
+    }
 
     revalidatePath("/admin/dashboard/messages");
 
