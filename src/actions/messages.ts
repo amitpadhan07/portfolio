@@ -8,7 +8,7 @@ import { connectToDatabase } from "@/lib/db";
 import { sendReplyMail } from "@/lib/brevo";
 import { serializeMessage, serializeMessages } from "@/lib/message-serializer";
 import { checkRateLimit } from "@/lib/rate-limit";
-import { sanitizeHtml } from "@/lib/sanitize";
+import { sanitizeHtml } from "@/lib/sanitize-html";
 import { buildReplyEmailHtml, buildReplyEmailPlainText } from "@/lib/email-template";
 import { ActivityLog } from "@/models/ActivityLog";
 import { ContactInfo } from "@/models/ContactInfo";

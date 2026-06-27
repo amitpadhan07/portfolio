@@ -12,7 +12,7 @@ import {
   XCircle,
 } from "lucide-react";
 import type { InboxMessage, ReplyHistoryItem } from "@/types/message";
-import { sanitizeHtml } from "@/lib/sanitize";
+import { sanitizeHtml } from "@/lib/sanitize-html";
 
 interface ConversationTimelineProps {
   message: InboxMessage;
