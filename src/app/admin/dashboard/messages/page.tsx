@@ -14,3 +14,4 @@ export default async function AdminMessagesPage() {
 
   return <MessagesInbox initialMessages={plainMessages} />;
 }
+
