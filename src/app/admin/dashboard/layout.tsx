@@ -59,8 +59,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     }
   };
 
-  // Render a loading state during auth status lookup
-  if (status === "loading") {
+  // Redirect unauthenticated users
+  React.useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/admin/login");
+    }
+  }, [status, router]);
+
+  // Render a loading state during auth status lookup or redirect
+  if (status === "loading" || status === "unauthenticated") {
     return (
       <div className="min-h-screen bg-[#0F172A] flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-sky-400"></div>

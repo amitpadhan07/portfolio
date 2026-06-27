@@ -45,6 +45,7 @@ export async function createCertification(data: any) {
 
     revalidatePath("/");
     revalidatePath("/admin/dashboard/certifications");
+    revalidatePath("/admin/dashboard");
 
     return { success: true, data: JSON.parse(JSON.stringify(newCert)) };
   } catch (error: any) {
@@ -112,6 +113,7 @@ export async function updateCertification(id: string, data: any) {
 
     revalidatePath("/");
     revalidatePath("/admin/dashboard/certifications");
+    revalidatePath("/admin/dashboard");
 
     return { success: true, data: JSON.parse(JSON.stringify(updatedCert)) };
   } catch (error: any) {
@@ -155,6 +157,7 @@ export async function deleteCertification(id: string) {
 
     revalidatePath("/");
     revalidatePath("/admin/dashboard/certifications");
+    revalidatePath("/admin/dashboard");
 
     return { success: true };
   } catch (error: any) {

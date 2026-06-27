@@ -38,6 +38,7 @@ export async function createSkill(data: any) {
 
     revalidatePath("/");
     revalidatePath("/admin/dashboard/skills");
+    revalidatePath("/admin/dashboard");
 
     return { success: true, data: JSON.parse(JSON.stringify(newSkill)) };
   } catch (error: any) {
@@ -74,6 +75,7 @@ export async function updateSkill(id: string, data: any) {
 
     revalidatePath("/");
     revalidatePath("/admin/dashboard/skills");
+    revalidatePath("/admin/dashboard");
 
     return { success: true, data: JSON.parse(JSON.stringify(updatedSkill)) };
   } catch (error: any) {
@@ -106,6 +108,7 @@ export async function deleteSkill(id: string) {
 
     revalidatePath("/");
     revalidatePath("/admin/dashboard/skills");
+    revalidatePath("/admin/dashboard");
 
     return { success: true };
   } catch (error: any) {
@@ -137,6 +140,7 @@ export async function reorderSkills(skillIds: string[]) {
 
     revalidatePath("/");
     revalidatePath("/admin/dashboard/skills");
+    revalidatePath("/admin/dashboard");
 
     return { success: true };
   } catch (error: any) {

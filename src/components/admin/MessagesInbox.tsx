@@ -74,6 +74,8 @@ function MessagesInboxInner({ initialMessages }: MessagesInboxProps) {
     if (result.success && result.data) {
       updateMessageInList(result.data);
       addToast({ type: "success", title: "Marked as read" });
+    } else {
+      addToast({ type: "error", title: "Action failed", message: result.error || "Failed to mark as read" });
     }
     setActionLoading(false);
   };
@@ -85,6 +87,8 @@ function MessagesInboxInner({ initialMessages }: MessagesInboxProps) {
     if (result.success && result.data) {
       updateMessageInList(result.data);
       addToast({ type: "info", title: "Marked as unread" });
+    } else {
+      addToast({ type: "error", title: "Action failed", message: result.error || "Failed to mark as unread" });
     }
     setActionLoading(false);
   };
@@ -96,6 +100,8 @@ function MessagesInboxInner({ initialMessages }: MessagesInboxProps) {
     if (result.success && result.data) {
       updateMessageInList(result.data);
       addToast({ type: "success", title: "Message archived" });
+    } else {
+      addToast({ type: "error", title: "Archive failed", message: result.error || "Failed to archive message" });
     }
     setActionLoading(false);
   };
@@ -107,6 +113,8 @@ function MessagesInboxInner({ initialMessages }: MessagesInboxProps) {
     if (result.success && result.data) {
       updateMessageInList(result.data);
       addToast({ type: "success", title: "Message restored" });
+    } else {
+      addToast({ type: "error", title: "Restore failed", message: result.error || "Failed to restore message" });
     }
     setActionLoading(false);
   };

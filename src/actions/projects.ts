@@ -40,6 +40,7 @@ export async function createProject(data: any) {
 
     revalidatePath("/");
     revalidatePath("/admin/dashboard/projects");
+    revalidatePath("/admin/dashboard");
 
     return { success: true, data: JSON.parse(JSON.stringify(newProject)) };
   } catch (error: any) {
@@ -86,6 +87,7 @@ export async function updateProject(id: string, data: any) {
 
     revalidatePath("/");
     revalidatePath("/admin/dashboard/projects");
+    revalidatePath("/admin/dashboard");
 
     return { success: true, data: JSON.parse(JSON.stringify(updatedProject)) };
   } catch (error: any) {
@@ -123,6 +125,7 @@ export async function deleteProject(id: string) {
 
     revalidatePath("/");
     revalidatePath("/admin/dashboard/projects");
+    revalidatePath("/admin/dashboard");
 
     return { success: true };
   } catch (error: any) {
@@ -155,6 +158,7 @@ export async function reorderProjects(projectIds: string[]) {
 
     revalidatePath("/");
     revalidatePath("/admin/dashboard/projects");
+    revalidatePath("/admin/dashboard");
 
     return { success: true };
   } catch (error: any) {

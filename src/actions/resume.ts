@@ -35,6 +35,7 @@ export async function updateResume(pdfUrl: string) {
 
     revalidatePath("/");
     revalidatePath("/admin/dashboard/resume");
+    revalidatePath("/admin/dashboard");
 
     return { success: true, data: JSON.parse(JSON.stringify(updatedResume)) };
   } catch (error: any) {
@@ -63,6 +64,7 @@ export async function incrementResumeDownloads() {
     );
 
     revalidatePath("/");
+    revalidatePath("/admin/dashboard");
     return { success: true, count: resume.downloadCount };
   } catch (error: any) {
     console.error("Increment downloads error:", error);
