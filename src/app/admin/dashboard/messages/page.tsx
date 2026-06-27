@@ -1,6 +1,7 @@
 import React from "react";
 import { connectToDatabase } from "@/lib/db";
 import { Message } from "@/models/Message";
+import { serializeMessages } from "@/lib/message-serializer";
 import MessagesInbox from "@/components/admin/MessagesInbox";
 
 export const dynamic = "force-dynamic";
@@ -9,16 +10,7 @@ export default async function AdminMessagesPage() {
   await connectToDatabase();
 
   const messagesDocs = await Message.find().sort({ createdAt: -1 }).lean();
-
-  const plainMessages = messagesDocs.map((m: any) => ({
-    _id: m._id.toString(),
-    name: m.name,
-    email: m.email,
-    subject: m.subject || "General Inquiry",
-    message: m.message,
-    read: m.read || false,
-    createdAt: m.createdAt.toISOString(),
-  }));
+  const plainMessages = serializeMessages(messagesDocs);
 
   return <MessagesInbox initialMessages={plainMessages} />;
 }

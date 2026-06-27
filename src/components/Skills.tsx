@@ -42,160 +42,177 @@ interface SkillsProps {
 
 interface SkillCategory {
   title: string;
-  icon: React.ReactNode;
+  icon: string | React.ReactNode;
   colorClass: string;
   borderColor: string;
   skills: SkillItem[];
 }
 
-const categoryMetaMap: Record<string, { title: string; icon: React.ReactNode; colorClass: string; borderColor: string }> = {
+const categoryMetaMap: Record<string, { title: string; icon: string | React.ReactNode; colorClass: string; borderColor: string }> = {
   Frontend: {
     title: "Frontend Development",
-    icon: <Monitor className="w-5 h-5 text-sky-400" />,
+    icon: "https://cdn.simpleicons.org/react/61DAFB",
     colorClass: "rgba(56, 189, 248, 0.08)",
-    borderColor: "rgba(56, 189, 248, 0.3)",
+    borderColor: "border-blue-500/30",
   },
   Backend: {
     title: "Backend Services",
-    icon: <Server className="w-5 h-5 text-violet-400" />,
+    icon: "https://cdn.simpleicons.org/nodedotjs/339933",
     colorClass: "rgba(139, 92, 246, 0.08)",
-    borderColor: "rgba(139, 92, 246, 0.3)",
+    borderColor: "border-purple-500/20",
   },
   Database: {
     title: "Databases & Storage",
-    icon: <Database className="w-5 h-5 text-emerald-400" />,
+    icon: "https://cdn.simpleicons.org/mongodb/47A248",
     colorClass: "rgba(52, 211, 153, 0.08)",
-    borderColor: "rgba(52, 211, 153, 0.3)",
+    borderColor: "border-emerald-500/20",
   },
   Programming: {
     title: "Languages & OOP Core",
-    icon: <Terminal className="w-5 h-5 text-amber-400" />,
+    icon: "https://cdn.simpleicons.org/javascript/F7DF1E",
     colorClass: "rgba(245, 158, 11, 0.08)",
-    borderColor: "rgba(245, 158, 11, 0.3)",
+    borderColor: "border-amber-500/20",
   },
   "AI/ML": {
     title: "AI & Machine Learning",
-    icon: <BrainCircuit className="w-5 h-5 text-rose-400" />,
+    icon: "https://cdn.simpleicons.org/scikitlearn/F89939",
     colorClass: "rgba(251, 113, 133, 0.08)",
-    borderColor: "rgba(251, 113, 133, 0.3)",
+    borderColor: "border-pink-500/20",
   },
   Cloud: {
     title: "Cloud & Devops",
-    icon: <Cloud className="w-5 h-5 text-blue-400" />,
+    icon: "https://cdn.simpleicons.org/amazonwebservices/FF9900",
     colorClass: "rgba(96, 165, 250, 0.08)",
-    borderColor: "rgba(96, 165, 250, 0.3)",
+    borderColor: "border-blue-500/20",
   },
 };
 
 const defaultCategories: SkillCategory[] = [
   {
     title: "Frontend Development",
-    icon: <Monitor className="w-5 h-5 text-sky-400" />,
+    icon: "https://cdn.simpleicons.org/react/61DAFB",
     colorClass: "rgba(56, 189, 248, 0.08)",
-    borderColor: "rgba(56, 189, 248, 0.3)",
+    borderColor: "border-blue-500/30",
     skills: [
-      { name: "React.js", category: "Frontend", level: "Advanced" },
-      { name: "Next.js", category: "Frontend", level: "Advanced" },
-      { name: "HTML5 & CSS3", category: "Frontend", level: "Advanced" },
-      { name: "Tailwind CSS", category: "Frontend", level: "Advanced" },
+      { name: "React.js", category: "Frontend", level: "Advanced", icon: "https://cdn.simpleicons.org/react/61DAFB" },
+      { name: "Next.js", category: "Frontend", level: "Advanced", icon: "https://cdn.simpleicons.org/nextdotjs/ffffff" },
+      { name: "HTML5 & CSS3", category: "Frontend", level: "Advanced", icon: "https://cdn.simpleicons.org/html5/E34F26" },
+      { name: "Tailwind CSS", category: "Frontend", level: "Advanced", icon: "https://cdn.simpleicons.org/tailwindcss/06B6D4" },
     ],
   },
   {
     title: "Backend Services",
-    icon: <Server className="w-5 h-5 text-violet-400" />,
+    icon: "https://cdn.simpleicons.org/nodedotjs/339933",
     colorClass: "rgba(139, 92, 246, 0.08)",
-    borderColor: "rgba(139, 92, 246, 0.3)",
+    borderColor: "border-purple-500/20",
     skills: [
-      { name: "Node.js", category: "Backend", level: "Advanced" },
-      { name: "Express.js", category: "Backend", level: "Advanced" },
+      { name: "Node.js", category: "Backend", level: "Advanced", icon: "https://cdn.simpleicons.org/nodedotjs/339933" },
+      { name: "Express.js", category: "Backend", level: "Advanced", icon: "https://cdn.simpleicons.org/express/ffffff" },
     ],
   },
   {
     title: "Databases & Storage",
-    icon: <Database className="w-5 h-5 text-emerald-400" />,
+    icon: "https://cdn.simpleicons.org/mongodb/47A248",
     colorClass: "rgba(52, 211, 153, 0.08)",
-    borderColor: "rgba(52, 211, 153, 0.3)",
+    borderColor: "border-emerald-500/20",
     skills: [
-      { name: "MongoDB", category: "Database", level: "Advanced" },
-      { name: "PostgreSQL / SQL", category: "Database", level: "Intermediate" },
+      { name: "MongoDB", category: "Database", level: "Advanced", icon: "https://cdn.simpleicons.org/mongodb/47A248" },
+      { name: "PostgreSQL / SQL", category: "Database", level: "Intermediate", icon: "https://cdn.simpleicons.org/postgresql/4169E1" },
     ],
   },
   {
     title: "Languages & OOP Core",
-    icon: <Terminal className="w-5 h-5 text-amber-400" />,
+    icon: "https://cdn.simpleicons.org/javascript/F7DF1E",
     colorClass: "rgba(245, 158, 11, 0.08)",
-    borderColor: "rgba(245, 158, 11, 0.3)",
+    borderColor: "border-amber-500/20",
     skills: [
-      { name: "JavaScript", category: "Programming", level: "Advanced" },
-      { name: "TypeScript", category: "Programming", level: "Advanced" },
-      { name: "Python", category: "Programming", level: "Advanced" },
-      { name: "Java / C++", category: "Programming", level: "Intermediate" },
+      { name: "JavaScript", category: "Programming", level: "Advanced", icon: "https://cdn.simpleicons.org/javascript/F7DF1E" },
+      { name: "TypeScript", category: "Programming", level: "Advanced", icon: "https://cdn.simpleicons.org/typescript/3178C6" },
+      { name: "Python", category: "Programming", level: "Advanced", icon: "https://cdn.simpleicons.org/python/3776AB" },
+      { name: "Java / C++", category: "Programming", level: "Intermediate", icon: "https://cdn.simpleicons.org/openjdk/EA2D2E" },
     ],
   },
   {
     title: "AI & Machine Learning",
-    icon: <BrainCircuit className="w-5 h-5 text-rose-400" />,
+    icon: "https://cdn.simpleicons.org/scikitlearn/F89939",
     colorClass: "rgba(251, 113, 133, 0.08)",
-    borderColor: "rgba(251, 113, 133, 0.3)",
+    borderColor: "border-pink-500/20",
     skills: [
-      { name: "Machine Learning", category: "AI/ML", level: "Intermediate" },
-      { name: "NLP Fundamentals", category: "AI/ML", level: "Intermediate" },
-      { name: "Generative AI", category: "AI/ML", level: "Intermediate" },
-      { name: "LLMs / Prompting", category: "AI/ML", level: "Intermediate" },
+      { name: "Machine Learning", category: "AI/ML", level: "Intermediate", icon: "https://cdn.simpleicons.org/tensorflow/FF6F00" },
+      { name: "NLP Fundamentals", category: "AI/ML", level: "Intermediate", icon: "https://cdn.simpleicons.org/huggingface/FFD21E" },
+      { name: "Generative AI", category: "AI/ML", level: "Intermediate", icon: "https://cdn.simpleicons.org/openai/412991" },
+      { name: "LLMs / Prompting", category: "AI/ML", level: "Intermediate", icon: "https://cdn.simpleicons.org/anthropic/CC9B7A" },
     ],
   },
 ];
 
-const iconMap: Record<string, React.ComponentType<any>> = {
-  monitor: Monitor,
-  server: Server,
-  terminal: Terminal,
-  braincircuit: BrainCircuit,
-  star: Star,
-  database: Database,
-  cloud: Cloud,
-  code: Code,
-  atom: Atom,
-  blocks: Blocks,
-  layout: Layout,
-  sparkles: Sparkles,
-  gitbranch: GitBranch,
-  braces: Braces,
-  binary: Binary,
-  messagesquare: MessageSquare,
-  wand2: Wand2,
-  cpu: Cpu,
-  layers: Layers,
-  network: Network,
-  globe: Globe,
-  settings: Settings,
-  workflow: Workflow
-};
-
-function getSkillIcon(skillName: string, iconName?: string) {
-  const normalizedIcon = (iconName || "").trim().toLowerCase();
-  if (normalizedIcon && iconMap[normalizedIcon]) {
-    return iconMap[normalizedIcon];
+function getSkillIconUrl(skillName: string, iconFromDb?: string): string {
+  // If the DB icon is already a URL, return it directly
+  if (iconFromDb && (iconFromDb.startsWith("http://") || iconFromDb.startsWith("https://"))) {
+    return iconFromDb;
   }
 
-  // Fallback to name-based lookup
-  const name = skillName.toLowerCase();
-  if (name.includes("react")) return Atom;
-  if (name.includes("next")) return Blocks;
-  if (name.includes("html") || name.includes("css")) return Layout;
-  if (name.includes("tailwind")) return Sparkles;
-  if (name.includes("node")) return Server;
-  if (name.includes("express")) return GitBranch;
-  if (name.includes("mongo") || name.includes("sql") || name.includes("db") || name.includes("postgres")) return Database;
-  if (name.includes("javascript") || name.includes("typescript") || name.includes("js") || name.includes("ts")) return Braces;
-  if (name.includes("python")) return Binary;
-  if (name.includes("java") || name.includes("c++") || name.includes("c#")) return Terminal;
-  if (name.includes("machine learning") || name.includes("ml")) return BrainCircuit;
-  if (name.includes("nlp") || name.includes("natural language")) return MessageSquare;
-  if (name.includes("generative") || name.includes("genai") || name.includes("prompt")) return Wand2;
-  if (name.includes("cloud") || name.includes("aws") || name.includes("devops")) return Cloud;
+  const dbIcon = (iconFromDb || "").trim().toLowerCase();
+  const name = skillName.trim().toLowerCase();
 
-  return Code; // default fallback
+  const slugMap: Record<string, { slug: string; color: string }> = {
+    react: { slug: "react", color: "61DAFB" },
+    reactjs: { slug: "react", color: "61DAFB" },
+    next: { slug: "nextdotjs", color: "ffffff" },
+    nextjs: { slug: "nextdotjs", color: "ffffff" },
+    nextdotjs: { slug: "nextdotjs", color: "ffffff" },
+    html: { slug: "html5", color: "E34F26" },
+    html5: { slug: "html5", color: "E34F26" },
+    css: { slug: "css3", color: "1572B6" },
+    css3: { slug: "css3", color: "1572B6" },
+    tailwind: { slug: "tailwindcss", color: "06B6D4" },
+    tailwindcss: { slug: "tailwindcss", color: "06B6D4" },
+    node: { slug: "nodedotjs", color: "339933" },
+    nodejs: { slug: "nodedotjs", color: "339933" },
+    nodedotjs: { slug: "nodedotjs", color: "339933" },
+    express: { slug: "express", color: "ffffff" },
+    expressjs: { slug: "express", color: "ffffff" },
+    mongo: { slug: "mongodb", color: "47A248" },
+    mongodb: { slug: "mongodb", color: "47A248" },
+    postgres: { slug: "postgresql", color: "4169E1" },
+    postgresql: { slug: "postgresql", color: "4169E1" },
+    sql: { slug: "postgresql", color: "4169E1" },
+    javascript: { slug: "javascript", color: "F7DF1E" },
+    js: { slug: "javascript", color: "F7DF1E" },
+    typescript: { slug: "typescript", color: "3178C6" },
+    ts: { slug: "typescript", color: "3178C6" },
+    python: { slug: "python", color: "3776AB" },
+    java: { slug: "openjdk", color: "EA2D2E" },
+    cplusplus: { slug: "cplusplus", color: "00599C" },
+    "c++": { slug: "cplusplus", color: "00599C" },
+    tensorflow: { slug: "tensorflow", color: "FF6F00" },
+    huggingface: { slug: "huggingface", color: "FFD21E" },
+    openai: { slug: "openai", color: "412991" },
+    anthropic: { slug: "anthropic", color: "CC9B7A" },
+    git: { slug: "git", color: "F05032" },
+    github: { slug: "github", color: "ffffff" },
+    aws: { slug: "amazonwebservices", color: "FF9900" },
+    docker: { slug: "docker", color: "2496ED" }
+  };
+
+  // 1. Try to find in slugMap using dbIcon
+  if (dbIcon && slugMap[dbIcon]) {
+    return `https://cdn.simpleicons.org/${slugMap[dbIcon].slug}/${slugMap[dbIcon].color}`;
+  }
+
+  // 2. Try to match name-based lookup
+  for (const key of Object.keys(slugMap)) {
+    if (name.includes(key)) {
+      return `https://cdn.simpleicons.org/${slugMap[key].slug}/${slugMap[key].color}`;
+    }
+  }
+
+  // 3. Fallback: if dbIcon is a simple slug word, try it directly
+  if (dbIcon && /^[a-z0-9]+$/i.test(dbIcon)) {
+    return `https://cdn.simpleicons.org/${dbIcon}`;
+  }
+
+  return "https://cdn.simpleicons.org/code/38bdf8";
 }
 
 export default function Skills({ skills = [] }: SkillsProps) {
@@ -217,7 +234,7 @@ export default function Skills({ skills = [] }: SkillsProps) {
       if (grouped[key] && grouped[key].length > 0) {
         const meta = categoryMetaMap[key] || {
           title: key,
-          icon: <Terminal className="w-5 h-5" />,
+          icon: "https://cdn.simpleicons.org/code/38bdf8",
           colorClass: "rgba(255,255,255,0.03)",
           borderColor: "rgba(255,255,255,0.1)",
         };
@@ -290,34 +307,52 @@ export default function Skills({ skills = [] }: SkillsProps) {
               <SpotlightCard
                 spotlightColor={category.colorClass}
                 borderColor={category.borderColor}
-                className="p-8 w-full flex flex-col justify-between"
+                className={`p-6 w-full flex flex-col justify-between bg-[#0f172a]/60 border rounded-xl backdrop-blur-sm`}
               >
                 <div>
                   {/* Category Header */}
                   <div className="flex items-center gap-3 mb-6">
-                    <div className="p-2.5 rounded-xl bg-white/5 border border-white/10">
-                      {category.icon}
+                    <div className="p-2 bg-[#1e293b] rounded-lg border border-slate-700/50 flex items-center justify-center w-10 h-10 flex-shrink-0">
+                      {typeof category.icon === "string" && category.icon.startsWith("http") ? (
+                        <img 
+                          src={category.icon} 
+                          alt={category.title} 
+                          className="w-5 h-5 object-contain"
+                          loading="lazy"
+                        />
+                      ) : (
+                        category.icon
+                      )}
                     </div>
-                    <h3 className="text-lg font-bold text-text-primary">{category.title}</h3>
+                    <h3 className="text-lg font-semibold tracking-wide text-slate-200">
+                      {category.title}
+                    </h3>
                   </div>
 
                   {/* Skills tags and descriptions */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {category.skills.map((skill) => {
-                      const IconComponent = getSkillIcon(skill.name, skill.icon);
+                      const iconUrl = getSkillIconUrl(skill.name, skill.icon);
                       return (
                         <div
                           key={skill.name}
-                          className="flex items-center gap-3 p-3 rounded-lg bg-white/[0.02] border border-white/5 hover:border-white/10 hover:bg-white/[0.04] transition-all"
+                          className="flex items-center gap-3 bg-[#131c2e]/80 border border-slate-800/60 rounded-xl p-3 hover:border-slate-700 transition-colors animate-float-slow"
                         >
-                          <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-primary/80 transition-colors group-hover:text-primary">
-                            <IconComponent className="w-5 h-5" />
+                          <div className="p-2 bg-[#1e293b]/60 rounded-lg border border-slate-800 flex items-center justify-center w-9 h-9 flex-shrink-0">
+                            <img 
+                              src={iconUrl} 
+                              alt={skill.name} 
+                              className="w-5 h-5 object-contain"
+                              loading="lazy"
+                            />
                           </div>
-                          <div className="flex flex-col gap-0.5">
-                            <span className="text-sm font-semibold text-text-primary">{skill.name}</span>
-                            <div className="flex items-center gap-1 text-[10px] text-text-muted font-mono uppercase">
-                              <Star className="w-2.5 h-2.5 fill-primary text-primary" />
-                              <span>{skill.level}</span>
+                          <div>
+                            <div className="text-sm font-medium text-slate-200">{skill.name}</div>
+                            <div className="flex items-center gap-1 mt-0.5">
+                              <Star className="w-3 h-3 fill-blue-400 text-blue-400" />
+                              <span className="text-[10px] font-bold tracking-wider text-slate-400">
+                                {skill.level}
+                              </span>
                             </div>
                           </div>
                         </div>

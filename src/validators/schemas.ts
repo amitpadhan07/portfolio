@@ -114,6 +114,37 @@ export const MessageSchema = z.object({
   message: z.string().min(5, "Message must be at least 5 characters"),
 });
 
+// Reply Attachment Schema
+export const ReplyAttachmentSchema = z.object({
+  filename: z.string().min(1, "Filename is required"),
+  url: z.string().url("Invalid attachment URL"),
+  mimeType: z.string().min(1, "MIME type is required"),
+  size: z.number().max(10 * 1024 * 1024, "Attachment exceeds 10MB limit"),
+});
+
+// Support Inbox Reply Schema
+export const ReplyToMessageSchema = z.object({
+  messageId: z.string().min(1, "Message ID is required"),
+  subject: z.string().min(1, "Subject is required").max(200, "Subject too long"),
+  body: z.string().min(1, "Reply body is required").max(50000, "Reply body too long"),
+  cc: z.string().optional().default(""),
+  bcc: z.string().optional().default(""),
+  attachments: z.array(ReplyAttachmentSchema).max(5, "Maximum 5 attachments").optional().default([]),
+});
+
+export const SaveDraftSchema = z.object({
+  messageId: z.string().min(1, "Message ID is required"),
+  subject: z.string().max(200).optional().default(""),
+  body: z.string().max(50000).optional().default(""),
+  cc: z.string().optional().default(""),
+  bcc: z.string().optional().default(""),
+  attachments: z.array(ReplyAttachmentSchema).max(5).optional().default([]),
+});
+
+export const ArchiveMessageSchema = z.object({
+  messageId: z.string().min(1, "Message ID is required"),
+});
+
 // Blog Post Schema
 export const BlogPostSchema = z.object({
   title: z.string().min(1, "Title is required"),

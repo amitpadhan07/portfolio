@@ -56,7 +56,12 @@ export async function submitContactMessage(data: any) {
     await connectToDatabase();
 
     // 1. Create message log in DB
-    const newMessage = await Message.create(parsed.data);
+    const newMessage = await Message.create({
+      ...parsed.data,
+      read: false,
+      status: "unread",
+      replyHistory: [],
+    });
 
     // 2. Increment form submission counter in today's Analytics log
     const todayStr = new Date().toISOString().split("T")[0];

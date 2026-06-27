@@ -173,3 +173,42 @@ body {
     cursor: none !important;
   }
 }
+
+/* TipTap Rich Text Editor */
+.ProseMirror {
+  outline: none;
+}
+.ProseMirror p.is-editor-empty:first-child::before {
+  color: #64748b;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+.ProseMirror ul,
+.ProseMirror ol {
+  padding-left: 1.25rem;
+  margin: 0.5rem 0;
+}
+.ProseMirror blockquote {
+  border-left: 3px solid rgba(56, 189, 248, 0.4);
+  padding-left: 1rem;
+  margin: 0.5rem 0;
+  color: #94a3b8;
+}
+.ProseMirror code {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  padding: 0.1rem 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+.ProseMirror a {
+  color: #38bdf8;
+  text-decoration: underline;
+}
+.ProseMirror img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 0.5rem 0;
+}

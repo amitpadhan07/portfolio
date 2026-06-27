@@ -30,11 +30,14 @@ export async function uploadImageAction(formData: FormData) {
       "image/webp",
       "image/svg+xml",
       "application/pdf",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/zip",
+      "application/x-zip-compressed",
     ];
     if (!ALLOWED_MIME_TYPES.includes(file.type)) {
       return {
         success: false,
-        error: "Invalid file type. Supported types: JPG, JPEG, PNG, WEBP, SVG, PDF",
+        error: "Invalid file type. Supported: JPG, PNG, PDF, DOCX, ZIP",
       };
     }
 
@@ -47,7 +50,13 @@ export async function uploadImageAction(formData: FormData) {
     // Upload using stream helper
     const secureUrl = await uploadToCloudinary(buffer, folder);
 
-    return { success: true, url: secureUrl };
+    return {
+      success: true,
+      url: secureUrl,
+      filename: file.name,
+      mimeType: file.type,
+      size: file.size,
+    };
   } catch (error: any) {
     console.error("Media upload server error:", error);
     return { success: false, error: "Failed to upload asset: " + error.message };
