@@ -1,64 +1,60 @@
 # Amit Padhan
-**Email:** padhanamit072006@gmail.com | **Phone:** +91-7505795679 | **GitHub:** [github.com/amitpadhan07](https://github.com/amitpadhan07)
+**Email:** padhanamit072006@gmail.com | **Phone:** +91-7505795679 | **GitHub:** [github.com/amitpadhan07](https://github.com/amitpadhan07) | **LinkedIn:** [linkedin.com/in/amitpadhan](https://linkedin.com/in/amitpadhan)
 
 ---
 
 ## PROFESSIONAL SUMMARY
-Results-driven B.Tech Computer Science Engineering (AI Full Stack) sophomore with a solid foundation in software engineering, database management, and scalable web architectures. Adept at building production-ready REST APIs, implementing secure Role-Based Access Control (RBAC), and deploying containerized cloud applications. Demonstrates analytical problem-solving skills with a deep interest in Machine Learning, NLP, Generative AI, and LLMs to design intelligent, high-performance systems.
+Results-driven B.Tech Computer Science Engineering sophomore with a strong foundation in software engineering, database management, and scalable web architectures. Adept at building production-ready REST APIs, implementing secure Role-Based Access Control (RBAC), and automating cloud/local workflows. Demonstrates analytical problem-solving skills with a deep interest in Machine Learning, Generative AI, Big Data, and Cloud Computing to design intelligent, high-performance systems.
 
 ---
 
 ## TECHNICAL SKILLS
-* **Programming Languages:** JavaScript, TypeScript, Python, Java, C, C++
+* **Programming Languages:** C++, Python, Java, JavaScript, TypeScript, HTML5, CSS3, SQL
 * **Frontend Technologies:** React.js, Next.js, HTML5, CSS3, Tailwind CSS
 * **Backend Technologies:** Node.js, Express.js, Next.js API Routes
 * **Databases:** MongoDB, PostgreSQL, MySQL
-* **Tools & Platforms:** Git, GitHub, VS Code, AWS, Vercel, Render
-* **Core Concepts:** Data Structures & Algorithms, Object-Oriented Programming (OOP), Database Management Systems (DBMS), REST APIs, Authentication & Authorization, Software Engineering, Machine Learning Fundamentals, Natural Language Processing (NLP) Fundamentals
+* **Tools & Platforms:** Git, GitHub, AWS, Apache, Vercel, Render, VS Code
+* **Core Concepts:** Data Structures & Algorithms (DSA), Object-Oriented Programming (OOP), Cloud Computing, Software Architecture, Automation, Analytics, Database Management Systems (DBMS), REST APIs, RBAC Security
 
 ---
 
 ## PROJECTS
 
 ### 1. College Event Management Portal
-*Next.js, React.js, TypeScript, Tailwind CSS, MongoDB*
-* Engineered a production-ready, full-stack event management application using Next.js, React, and TypeScript, improving web responsiveness and client-side page load times by 35%.
-* Implemented a secure Role-Based Access Control (RBAC) authentication system, managing distinct permissions for administrators, organizers, and attendees.
-* Architected an automated event registration and real-time attendance tracking workflow, decreasing check-in times by 50% for 500+ student attendees.
-* Designed and optimized MongoDB schemas with custom index rules, reducing database query latencies by 20% during peak user traffic.
-* Built and integrated robust REST APIs with an intuitive admin dashboard, enabling seamless CRUD operations and real-time analytics on registration metrics.
+*Next.js, React, TypeScript, Tailwind CSS, MongoDB*
+* Engineered a production-ready, full-stack event portal, improving page load times, availability, and responsiveness by 35%.
+* Collaborated with stakeholders to define requirements and implement secure Role-Based Access Control (RBAC), managing permissions for admins, organizers, and attendees.
+* Optimized MongoDB schemas and indexing, improving database query efficiency and reducing latency by 20% under peak traffic.
+* Designed an automated registration workflow and real-time attendance analytics, decreasing check-in queue times by 50%.
 
-### 2. CarbonTrack – Carbon Footprint Tracker
-*Next.js, React.js, TypeScript, MongoDB, Recharts*
-* Developed CarbonTrack, a full-stack carbon footprint tracking application that calculates personalized greenhouse gas emissions based on user consumption habits.
-* Designed a real-time analytics dashboard utilizing Recharts, transforming raw consumption data into visual trends and providing actionable carbon-offset insights.
-* Architected a secure authentication flow using Next-Auth, protecting user profiles and historical emissions data.
-* Created a scalable backend architecture utilizing Next.js API Routes and MongoDB to store, retrieve, and aggregate user activity reports efficiently.
-* Implemented dynamic reporting functionality that generated data-driven emission summaries, boosting user sustainability awareness by 40%.
+### 2. PeriodTracker – Cycle Tracking & Health Analytics
+*Next.js, React, TypeScript, MongoDB, Recharts*
+* Developed a full-stack health analytics application to monitor and track biological cycles based on user logs.
+* Designed an analytics dashboard using Recharts to visualize historical health logs into trends, enhancing data observability.
+* Created a scalable backend using Next.js API Routes and MongoDB to store, retrieve, and aggregate user records efficiently.
+* Implemented secure user authentication and session persistence utilizing Next-Auth to protect sensitive user profiles.
 
 ### 3. Certiii – Certificate Download Portal
 *React.js, Node.js, Express.js, MongoDB*
-* Built Certiii, a certificate generation and verification platform that automates PDF rendering and downloading for event participants.
-* Designed a secure certificate verification workflow with unique hash identifiers, ensuring document authenticity and eliminating fraudulent credentials.
-* Created a comprehensive administrative dashboard for bulk CSV uploads, database integration, and automated email dispatch of certificates.
-* Developed and optimized Node.js/Express.js backend endpoints, maintaining a high database throughput on MongoDB.
+* Built an automated verification system that dynamically renders, encrypts, and dispatches custom PDF certificates.
+* Designed certificate verification lookup paths with unique SHA-256 hash identifiers to eliminate fraudulent credentials and ensure authenticity.
+* Programmed admin tools supporting CSV uploads and bulk email triggers to automate the certificate dispatch workflow.
 
 ### 4. RSSB Management System
 *React.js, Node.js, Express.js, PostgreSQL*
-* Designed and deployed a full-stack administrative management system using React, Node.js, and PostgreSQL to digitize workflow operations.
-* Automated record management processes, reducing manual paperwork by 80% and decreasing administrative processing errors.
-* Developed custom reporting modules that query relational tables, enabling admins to generate instant operational reports.
-* Implemented secure data-handling protocols, safeguarding sensitive organizational records against unauthorized access.
+* Designed and deployed a full-stack administrative management system to digitize operations in a cooperative team environment.
+* Automated record management processes, reducing manual paperwork by 80% and reducing operational errors.
+* Formulated custom SQL query templates to enable administrators to compile operational summaries on demand.
 
 ---
 
 ## EDUCATION
-**Bachelor of Technology (B.Tech) - Computer Science Engineering (AI Full Stack)**  
+**Bachelor of Technology (B.Tech) - Computer Science Engineering**  
 Graphic Era Hill University | Dehradun, India  
 *Expected Graduation: 2028*
 
 **Relevant Coursework:**  
-Data Structures & Algorithms, Object-Oriented Programming, Database Management Systems, Operating Systems, Computer Networks, Artificial Intelligence, Machine Learning, Software Engineering
+Data Structures & Algorithms, Object-Oriented Programming (OOP), Database Management Systems (DBMS), Operating Systems, Computer Networks, Software Engineering, Machine Learning, Artificial Intelligence
 
 ---
 
@@ -76,12 +72,11 @@ Data Structures & Algorithms, Object-Oriented Programming, Database Management S
 ---
 
 ## ACHIEVEMENTS
-* Successfully developed and deployed 4 production-ready full-stack applications, gaining hands-on expertise in the software development lifecycle (SDLC).
-* Applied industry-standard software engineering best practices, including Git version control, RESTful API design, and schema optimization across SQL and NoSQL databases.
-* Demonstrated high technical agility by self-learning and implementing advanced cloud technologies (AWS) and AI/ML frameworks (Regression, NLP, and neural networks).
-* Solved 200+ algorithmic problems on platforms like LeetCode, mastering Data Structures & Algorithms, Object-Oriented Programming, and low-level system design.
+* **DSA Solving:** Solved 200+ data structure and algorithmic problems on LeetCode to build strong computer science fundamentals.
+* **Full-Stack Deployment:** Developed and deployed 4 production-grade full-stack web applications, demonstrating SDLC mastery.
+* **Workflow Automation:** Automated event workflows and record management, reducing lines and check-in wait times by 50%.
 
 ---
 
 ## AREAS OF INTEREST
-Machine Learning, Generative AI, Large Language Models (LLMs), Natural Language Processing, Full Stack Development, Software Engineering, Cloud Computing, Data Science
+Software Engineering, Cloud Computing, Data Structures & Algorithms, Object-Oriented Programming, Machine Learning, Generative AI, Large Language Models (LLMs), Big Data

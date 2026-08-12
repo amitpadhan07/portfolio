@@ -1,0 +1,121 @@
+\documentclass[a4paper,10pt]{article}
+%-----------------------------------------------------------
+\usepackage[top=0.75in, bottom=0.75in, left=0.55in, right=0.85in]{geometry}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{palatino}
+\usepackage{tabularx}
+\fontfamily{SansSerif}
+\selectfont
+
+\usepackage[T1]{fontenc}
+\usepackage
+%[ansinew]
+[utf8]
+{inputenc}
+
+\usepackage{color}
+\definecolor{mygrey}{gray}{0.75}
+\textheight=9.75in
+\raggedbottom
+
+\setlength{\tabcolsep}{0in}
+\newcommand{\isep}{-2 pt}
+\newcommand{\lsep}{-0.5cm}
+\newcommand{\psep}{-0.6cm}
+\renewcommand{\labelitemii}{$\circ$}
+
+\pagestyle{empty}
+%-----------------------------------------------------------
+%Custom commands
+\newcommand{\resitem}[1]{\item #1 \vspace{-2pt}}
+\newcommand{\resheading}[1]{{\small \colorbox{mygrey}{\begin{minipage}{0.975\textwidth}{\textbf{#1 \vphantom{p\^{E}}}}\end{minipage}}}}
+\newcommand{\ressubheading}[3]{
+\begin{tabular*}{6.62in}{l @{\extracolsep{\fill}} r}
+	\textsc{{\textbf{#1}}} & \textsc{\textit{[#2]}} \\
+\end{tabular*}\vspace{-8pt}}
+%-----------------------------------------------------------
+
+\begin{document}
+\hspace{0.5cm}\\[-0.2cm]
+
+\textbf{Amit Padhan} \\
+\indent Email-id : \textbf{\url{padhanamit072006@gmail.com}} \\
+\indent Mobile No.: \textbf{7505795679} \\
+\indent GitHub: \textbf{\url{https://github.com/amitpadhan07}} \\
+\indent LinkedIn: \textbf{\url{https://linkedin.com/in/amitpadhan}} \\
+
+\resheading{\textbf{ACADEMIC DETAILS} }\\[\lsep]
+\\
+\indent \rule{6.8in}{0.4pt}\\
+\indent \begin{tabular}{ l @{\hskip 0.15in} l @{\hskip 0.15in} l @{\hskip 0.15in} l @{\hskip 0.15in} }
+\noindent \textbf{Year} & \textbf{Degree/Exam} & \textbf{Institute} & \textbf{GPA/Marks(\%)}\\
+Jun, 2024 - Jun, 2028 & B.TECH in Computer Science & Graphic Era Hill University Dehradun & 75 \% \\
+2024 & C.B.S.E & Bhartiyam International School & 68.00 \% \\
+2022 & U.B.S.E & P.P.N.T Inter College, Jaspur & 76.00 \%\\
+\end{tabular}
+\indent \rule{6.8in}{0.4pt}
+\\
+
+\resheading{\textbf{TECHNICAL SKILLS} }\\[\lsep]
+\begin{itemize}
+\setlength\itemsep{\isep}
+\item \textbf{Languages:} C++, Python, Java, JavaScript, TypeScript, HTML5, CSS3, SQL
+\item \textbf{Frameworks \& Libraries:} React.js, Next.js, Node.js, Express.js, Tailwind CSS, Recharts
+\item \textbf{Databases:} MongoDB, PostgreSQL, MySQL
+\item \textbf{Tools \& Platforms:} Git, GitHub, AWS, Apache, Vercel, Render, VS Code
+\item \textbf{Core Concepts:} Data Structures \& Algorithms (DSA), Object-Oriented Programming (OOP), Cloud Computing, Software Architecture, Automation, Analytics, Database Management Systems (DBMS), REST APIs, RBAC Security
+\end{itemize}
+
+\resheading{\textbf{PROJECTS} }\\[\lsep]
+\begin{itemize}
+\setlength\itemsep{0.5em}
+\item \textbf{College Event Management Portal} (Next.js, React, TypeScript, Tailwind CSS, MongoDB)
+	\begin{itemize}\setlength{\itemsep}{\isep}
+	\resitem{Engineered a production-ready, full-stack event portal, improving page load times, availability, and responsiveness by 35\%.}
+	\resitem{Collaborated with stakeholders to define requirements and implement secure Role-Based Access Control (RBAC), managing permissions for admins, organizers, and attendees.}
+	\resitem{Optimized MongoDB schemas and indexing, improving database query efficiency and reducing latency by 20\% under peak traffic.}
+	\resitem{Designed an automated registration workflow and real-time attendance analytics, decreasing queue times by 50\%.}
+	\end{itemize}
+
+\item \textbf{PeriodTracker -- Cycle Tracking \& Health Analytics} (Next.js, React, TypeScript, MongoDB, Recharts)
+	\begin{itemize}\setlength{\itemsep}{\isep}
+	\resitem{Developed a full-stack health analytics application to monitor and track biological cycles based on user logs.}
+	\resitem{Designed an analytics dashboard using Recharts to visualize historical health logs into trends, enhancing data observability.}
+	\resitem{Created a scalable backend using Next.js API Routes and MongoDB to store, retrieve, and aggregate user records efficiently.}
+	\resitem{Implemented secure user authentication and session persistence utilizing Next-Auth to protect sensitive user profiles.}
+	\end{itemize}
+
+\item \textbf{Certiii -- Certificate Download Portal} (React.js, Node.js, Express.js, MongoDB)
+	\begin{itemize}\setlength{\itemsep}{\isep}
+	\resitem{Built an automated verification system that dynamically renders, encrypts, and dispatches custom PDF certificates.}
+	\resitem{Designed certificate verification lookup paths with unique SHA-256 hash identifiers to eliminate fraudulent credentials and ensure authenticity.}
+	\resitem{Programmed admin tools supporting CSV uploads and bulk email triggers to automate the certificate dispatch workflow.}
+	\end{itemize}
+
+\item \textbf{RSSB Management System} (React.js, Node.js, Express.js, PostgreSQL)
+	\begin{itemize}\setlength{\itemsep}{\isep}
+	\resitem{Designed and deployed a full-stack administrative management system to digitize operations in a cooperative team environment.}
+	\resitem{Automated record management processes, reducing manual paperwork by 80\% and reducing operational errors.}
+	\resitem{Formulated custom SQL query templates to enable administrators to compile operational summaries on demand.}
+	\end{itemize}
+\end{itemize}
+
+\resheading{\textbf{ACHIEVEMENTS \& CERTIFICATIONS} }\\[\lsep]
+\begin{itemize}
+\setlength\itemsep{\isep}
+\item \textbf{DSA Solving:} Solved 200+ data structure and algorithmic problems on LeetCode to build strong computer science fundamentals.
+\item \textbf{Full-Stack Deployment:} Developed and deployed 4 production-grade full-stack web applications, demonstrating SDLC mastery.
+\item \textbf{Workflow Automation:} Automated event workflows and record management, reducing lines and check-in wait times by 50\%.
+\item \textbf{NPTEL Certification:} Database Management Systems (DBMS).
+\item \textbf{AWS Academy Certification:} AWS Cloud CLI Essentials.
+\item \textbf{Google AI Certifications:} Google AI for Data Analysis, Google AI for Research and Insights.
+\end{itemize}
+
+\resheading{\textbf{AREAS OF INTEREST} }\\[\lsep]
+\begin{itemize}
+\setlength\itemsep{\isep}
+\item Software Engineering, Cloud Computing, Data Structures \& Algorithms, Object-Oriented Programming, Machine Learning, Generative AI, Large Language Models (LLMs), Big Data.
+\end{itemize}
+
+\end{document}
